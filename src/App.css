@@ -2,7 +2,6 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  background: AliceBlue;
 }
 
 main {
@@ -14,5 +13,12 @@ main {
   max-width:1200px;
   margin: auto;
   margin-top: 36px;
-  background-color: dodgerblue;
+  /* background-color: dodgerblue; */
+}
+
+@media (max-width: 768px) {
+  /* main {
+    width: 100%;
+    background: dodgerblue;
+  } */
 }
