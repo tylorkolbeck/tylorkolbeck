@@ -3,6 +3,7 @@ import './App.css';
 import Toolbar from './components/Toolbar/Toolbar'
 import TopDrawer from './components/TopDrawer/TopDrawer'
 import Backdrop from './components/Backdrop/Backdrop'
+import AllSyncs from './containers/Syncs/AllSyncs'
 
 class App extends Component {
   state = {
@@ -34,7 +35,7 @@ class App extends Component {
         {backdrop}
 
         <main>
-          <p>This is the page content</p>
+          <AllSyncs />
         </main>
         
 
