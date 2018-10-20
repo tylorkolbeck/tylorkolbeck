@@ -2,6 +2,7 @@ import React from 'react'
 import DrawerToggleButton from '../TopDrawer/DrawerToggleButton'
 import './Toolbar.css'
 import Logo from '../Logo/Logo'
+import {NavLink} from 'react-router-dom'
 
 const toolbar = props => (
   <header className="toolbar">
@@ -11,10 +12,11 @@ const toolbar = props => (
       <div className="center__spacer"></div>
       <div className="toolbar__navigation__items">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/">Syncs</a></li>
-          <li><a href="/">About</a></li>
-          <li><a href="/">Contact</a></li>
+          <li><NavLink to='/' exact>Home</NavLink></li>
+          <li><NavLink to='/syncs'>Syncs</NavLink></li>
+          <li><NavLink to='/about'>About</NavLink></li>
+          <li><NavLink to='/contact'>Contact</NavLink></li>
+          <li><NavLink to='new-post'>New</NavLink></li>
         </ul>
       </div>
       <div className="toolbar__toggle-button">

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import './App.css';
 import Toolbar from './components/Toolbar/Toolbar'
 import TopDrawer from './components/TopDrawer/TopDrawer'
 import Backdrop from './components/Backdrop/Backdrop'
 import AllSyncs from './containers/Syncs/AllSyncs'
+import NewPost from './containers/NewPost/NewPost'
 
 class App extends Component {
   state = {
@@ -28,19 +31,22 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <BrowserRouter>
+        <div className="App">
 
-        <Toolbar drawerClickedHander={this.drawerToggleClickHandler}/>
-        <TopDrawer show={this.state.sideDrawerOpen}/>
-        {backdrop}
+          {/* All the navigation stuff */}
+          <Toolbar drawerClickedHander={this.drawerToggleClickHandler}/>
+          <TopDrawer show={this.state.sideDrawerOpen}/>
+          {backdrop}
 
-        <main>
-          <AllSyncs />
-        </main>
-        
-
-
-      </div>
+          {/* The main part of the page */}
+          <main>
+            <Route path="/" exact render={() => <h1 style={{fontFamily: 'Montserrat', fontWeight: '400'}}>"The only stupid questions are the questions that are not followed up with some research."</h1>} />
+            <Route path="/syncs" exact component={AllSyncs} />
+            <Route path="/new-post" exact component={NewPost} />
+          </main>
+        </div>
+      </BrowserRouter>
     );
   }
 }
