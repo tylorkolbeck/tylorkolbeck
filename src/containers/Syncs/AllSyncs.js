@@ -12,26 +12,40 @@ class AllSyncs extends Component {
   // Once everything is mounted get the post data.
   componentDidMount() {
     // Fetch the posts using the axios instance which holds base URL
-    axios.get('/posts.json')
-      .then(response => {
-        const posts = response.data
+    axios.get('/posts.json') //FOR FIREBASE
+    // axios.get('/posts') // FOR JSON PLACEHOLDER
+      .then((response) => {
+        let posts = []   
 
+        // Loop through the JSON object and put each post object in an array.
+        for (let x in response.data) {
+          posts.push(response.data[x])
+        }
+
+        // Get an actual copy(not reference) to the JSON object
         const updatedPosts = posts.map(post => {
           return {
-            ...post,
-            author: 'Tylor Kolbeck',
-            date: '18 Jan 18',
-            description: 'Description - Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-            tags: ['Python', 'Javascript', 'React', 'Coding']
+            ...post
           }
         })
-        // Set state to new posts
+
+        // Set state to the fetched posts object
         this.setState({posts:updatedPosts})
       })
+
+      // Catch any errors 
       .catch(error => { // Check for any error.  Handle this in the future.
         this.setState({error: error})
         console.log(error) 
+        console.log(axios.head) 
       })
+  }
+
+  postSelectedHandler = (id) => {
+    // Navigating programmatically to use to navigate after somethign is complete
+    this.props.history.push({pathname: 'sync/' + id})
+    // this.props.history.goBack()
+    console.log(this.props.history)
   }
 
   render () {
@@ -40,24 +54,28 @@ class AllSyncs extends Component {
     
     // If there is no error then display the posts.
     if (!this.state.error) {
+      // console.log(this.state.error)
       syncs = this.state.posts.map(post => {
-        return <Sync 
+        return ( 
+
+        <Sync 
           key={post.id}
+          id={post.id}
           title={post.title}
           author={post.author}
           description={post.description}
           body={post.body}
           date={post.date}
-          tags={post.tags}/>
+          tags={post.tags}
+          clicked={()=> this.postSelectedHandler(post.id)}
+          />
+        )
       })
     }
 
     return (
       <div className="AllSyncs">
         {syncs}
-        {/* <Sync syncTitle='Intro To A payment System'/>
-        <Sync syncTitle='First Steps With The Cache API'/>
-        <Sync syncTitle='Getting Started With Service Workers'/> */}
       </div>
     )
   }

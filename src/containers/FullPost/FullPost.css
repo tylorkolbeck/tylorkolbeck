@@ -1,0 +1,26 @@
+.FullPost {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.FullPost h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 2.3rem;
+}
+
+.FullPost h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+.FullPost p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  line-height: 130%;
+  letter-spacing: .03rem;
+}
+
+.FullPost .tags {
+  font-weight: 600;
+}

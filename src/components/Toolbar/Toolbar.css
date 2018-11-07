@@ -58,11 +58,16 @@
 }
 
 .toolbar__navigation__items a:hover,
-.toolbar__navigation__items a:active {
+.toolbar__navigation__items a:active,
+.toolbar__navigation__items a.active {
   color: #DA1C5C;
 }
 
-.active {
+.toolbar__navigation__items a.active {
+  border-bottom: 2px solid #DA1C5C;
+}
+
+.toolbar__navigation__items.active {
   border-bottom: '2px solid #DA1C5C';
 }
 

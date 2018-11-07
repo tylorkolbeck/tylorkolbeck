@@ -14,9 +14,9 @@ const toolbar = props => (
         <ul>
           <li><NavLink to='/' exact>Home</NavLink></li>
           <li><NavLink to='/syncs'>Syncs</NavLink></li>
-          <li><NavLink to='/about'>About</NavLink></li>
-          <li><NavLink to='/contact'>Contact</NavLink></li>
-          <li><NavLink to='new-post'>New</NavLink></li>
+          <li><NavLink to='/about' exact>About</NavLink></li>
+          <li><NavLink to='/contact' exact>Contact</NavLink></li>
+          <li><NavLink to='/new-post' exact>New</NavLink></li>
         </ul>
       </div>
       <div className="toolbar__toggle-button">

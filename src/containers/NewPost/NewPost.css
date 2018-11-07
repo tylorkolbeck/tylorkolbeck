@@ -1,0 +1,72 @@
+.NewPost {
+  height: 100%;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  /* background: red; */
+}
+
+.NewPost h1 {
+  font-weight: 400;
+  margin-left: 20px;
+  color: rgb(49, 49, 49);
+}
+
+.NewPost textarea, input, label {
+  font-size: 1.3rem;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  border-width: 1px;
+  border-style: solid;
+  border-color: grey;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+}
+
+.NewPost textarea:focus,
+.NewPost input:focus {
+  outline: none;
+}
+
+
+.NewPost div {
+  padding: 20px;
+}
+
+.NewPost input {
+  padding: 6px;
+}
+
+.NewPost textarea {
+  padding: 6px;
+  border: 1px solid grey;
+}
+
+
+.NewPost label {
+  display: block;
+  padding: 10px;
+  width: 150px;
+  padding-right: 0.5rem;
+  border: 0px;
+  border-radius: 5px 5px 0 0;
+  /* background: lightgrey; */
+  margin-bottom: 10px;
+  color: rgb(49, 49, 49);
+}
+
+.NewPost button {
+  margin: 50px 20px;
+  border: 0px;
+  outline: none;
+  padding: 20px;
+  color:rgb(49, 49, 49);
+}
+
+.NewPost button:hover {
+  cursor: pointer;
+  background: white;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+}
+
