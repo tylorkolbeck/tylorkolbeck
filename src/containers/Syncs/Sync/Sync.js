@@ -1,13 +1,18 @@
 import React from 'react'
 import './Sync.css'
-import { Link } from 'react-router-dom'
+
 
 
 const sync = props => {
 
   const tagLoop = (arr) => {
-    if (arr) {
-      return props.tags.join(' / ')
+    console.log('TAG LOOP RUNNING')
+    console.log(arr)
+    if (Array.isArray(arr)) {
+      console.log("Running Array")
+      return arr.join(' | ')
+    } else {
+      return arr
     }
     
   }
@@ -28,9 +33,9 @@ const sync = props => {
         
 
         <h1>{props.title}</h1>
-        <h3><span className='bold'>By:</span>{props.author}<span className='sync__date__mobile'> - {props.date}</span></h3>
+        <h3><span className='bold'>By: </span>{props.author}<span className='sync__date__mobile'> - {props.date}</span></h3>
         <p><span className='tab'> </span>{props.description}</p>
-        <p className='tags'>Tags:<span style={{fontWeight: 400, fontSize: '1rem', fontStyle: 'italic'}}>{tagLoop()}</span></p>
+        <p className='tags'>Tags: <span style={{fontWeight: 400, fontSize: '1rem', fontStyle: 'italic'}}>{tagLoop(props.tags)}</span></p>
       </div>
 
     </div>

@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 import axios from '../../axios'
 import './FullPost.css'
-import firebase from '../../firebase'
-
-
-
 
 class FullPost extends Component {
   state = {
@@ -53,17 +49,17 @@ class FullPost extends Component {
     if (this.state.loadedPost) {
       let syncData = this.state.loadedPost
      
-      const tagLoop = (arr) => {
+      const tagLoop = (arr) => { // FIX THIS CHECK TO SEE IF THERE ARE ACTUALLY TAGS OR NOT
         if (arr) {
-          return syncData.tags.join(' / ')
+          return syncData.tags.join(' | ')
         }
       }
 
       sync = (
         <div className="FullPost">
           <h1>{syncData.title}</h1>
-          <h3><span className='bold'>By:</span>{syncData.author} <span > - {syncData.date}</span></h3>
-          <p className='tags'>Tags: <span style={{fontWeight: 400, fontSize: '1rem', fontStyle: 'italic'}}>{tagLoop()}</span></p>
+          <h3><span className='bold'>By: </span>{syncData.author} <span > - {syncData.date}</span></h3>
+          <p className='bold'><span className='bold'>Tags: </span> <span style={{fontSize: '1.3rem'}}>{tagLoop(syncData.tags)}</span></p>
           <p><span className='tab'> </span>{syncData.description}</p>
           <p><span className='tab'> </span> Body - {syncData.body}</p>
         </div>

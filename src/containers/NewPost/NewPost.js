@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './NewPost.css'
-import axios from '../../axios';
+
 import firebase from '../../firebase'
 import { Redirect } from 'react-router-dom'
 
@@ -12,7 +12,7 @@ class NewPost extends Component  {
     body: 'BODY 1',
     author: 'Tylor Kolbeck',
     description: 'DESCRIPTION 1',
-    tags: 'TAG 1!',
+    tags: 'Comma Seperated Tags',
     visible: false
   }
 

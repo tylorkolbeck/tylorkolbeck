@@ -16,11 +16,12 @@
 
 .FullPost p {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   line-height: 130%;
   letter-spacing: .03rem;
+  font-weight: 400;
 }
 
 .FullPost .tags {
-  font-weight: 600;
+  font-weight: 400;
 }

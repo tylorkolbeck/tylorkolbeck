@@ -1,7 +1,6 @@
-import React, { Component, Suspense } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
-
 
 import './App.css';
 import Toolbar from './components/Toolbar/Toolbar'
@@ -10,16 +9,7 @@ import Backdrop from './components/Backdrop/Backdrop'
 import AllSyncs from './containers/Syncs/AllSyncs'
 import Home from './containers/Home/Home'
 import FullPost from './containers/FullPost/FullPost'
-// import asyncComponent from './hoc/asyncComponent'
-// import NewPost from './containers/NewPost/NewPost'
-
-
-const NewPost = React.lazy(() => import('./containers/NewPost/NewPost'));
-
-// const AsyncNewPost = asyncComponent(() => {
-//   return import('./containers/NewPost/NewPost')
-// });
-
+import NewPost from './containers/NewPost/NewPost'
 
 
 class App extends Component {
@@ -46,7 +36,7 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/">
         <div className="App">
 
           {/* All the navigation stuff */}
@@ -58,17 +48,9 @@ class App extends Component {
           <main>
             {/* The different routes for the website */}
             <Switch> 
-            
-            {/* <Route path="/new-post"
-             render={() => {
-               return (
-              <Suspense fallback={<div>Loading...</div>}>
-                <NewPost />
-              </Suspense>
-             )}} /> */}
-
               <Route path="/" exact component={Home} />
               <Route path="/syncs" exact component={AllSyncs} />
+              <Route path="/new-post" exact component={NewPost} />
              
               <Route path="/sync/:id" component={FullPost} />
               
