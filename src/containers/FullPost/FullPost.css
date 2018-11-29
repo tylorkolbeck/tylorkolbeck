@@ -25,3 +25,7 @@
 .FullPost .tags {
   font-weight: 400;
 }
+
+.fullpost__date {
+  font-size: .9rem;
+}

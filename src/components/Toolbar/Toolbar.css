@@ -37,6 +37,14 @@
   flex: 1;
 }
 
+#beta_label {
+  display: block;
+  font-family: 'Spicy Rice', cursive;
+  font-size: 1.6rem;
+  color: #DA1C5C;
+  transform: rotate(15deg);
+}
+
 .toolbar__navigation__items ul{
   list-style: none;
   margin: 0;

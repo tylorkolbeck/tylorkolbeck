@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './NewPost.css'
 
-
+import firebase from '../../firebase'
 import { Redirect } from 'react-router-dom'
 
 class NewPost extends Component  {
@@ -22,7 +22,7 @@ class NewPost extends Component  {
   }
 
   postDataHandler = () => {
-    // let postRef = firebase.database().ref('posts')
+    let postRef = firebase.database().ref('posts')
     const data ={
       title: this.state.title,
       body: this.state.body,
@@ -35,7 +35,7 @@ class NewPost extends Component  {
       submitted: false,
     }
     // The HTTP Request
-    // postRef.child(data.id).set(data)
+    postRef.child(data.id).set(data)
       .then(res => {
         
         // this.props.history.replace('/syncs') // This will prevent going back to the new post page again
@@ -75,7 +75,7 @@ class NewPost extends Component  {
 
         {/*  IF PAGE IS SUBMITTED THEN REDIRECT TO SYNCS */}
         {redirect}
-        {/* <button onClick={this.postDataHandler}>Add Post</button> */}
+        <button onClick={this.postDataHandler}>Add Post</button>
           <h1>New Post - ID: {this.state.id}</h1>
           
           <div>

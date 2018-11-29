@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
 import './App.css';
 import Toolbar from './components/Toolbar/Toolbar'
 import TopDrawer from './components/TopDrawer/TopDrawer'
 import Backdrop from './components/Backdrop/Backdrop'
-import AllSyncs from './containers/Syncs/AllSyncs'
 import Home from './containers/Home/Home'
 import FullPost from './containers/FullPost/FullPost'
 import NewPost from './containers/NewPost/NewPost'
+import AllPosts from './containers/AllPosts/AllPosts'
 
 
 class App extends Component {
@@ -49,10 +48,12 @@ class App extends Component {
             {/* The different routes for the website */}
             <Switch> 
               <Route path="/" exact component={Home} />
-              <Route path="/syncs" exact component={AllSyncs} />
+              {/* <Route path="/syncs" exact component={AllSyncs} /> */}
               <Route path="/new-post" exact component={NewPost} />
+              <Route path="/all-posts"  component={AllPosts} />
              
-              <Route path="/sync/:id" component={FullPost} />
+              <Route path="/posts/:id" exact component={FullPost} />
+              <Route path="/posts/filter/:filterTag" exact component={AllPosts}/>
               
               {/* Catch any unknown routes */}
               <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>

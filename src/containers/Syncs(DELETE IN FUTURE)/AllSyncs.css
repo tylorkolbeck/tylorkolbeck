@@ -1,0 +1,7 @@
+.AllSyncs {
+  /* background-color: yellow; */
+}
+
+.AllSyncs:first-child {
+  margin-top: 86px;
+}

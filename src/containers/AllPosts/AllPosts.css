@@ -1,0 +1,18 @@
+.AllSyncs {
+    margin: auto;
+  }
+  
+.AllSyncs:first-child {
+  margin-top: 86px;
+}
+
+.AllPostsContainer {
+  padding: 35px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .AllPostsContainer {
+    padding: 16px;
+  }
+}

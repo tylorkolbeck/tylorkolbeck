@@ -13,10 +13,13 @@ const toolbar = props => (
       <div className="toolbar__navigation__items">
         <ul>
           <li><NavLink to='/' exact>Home</NavLink></li>
-          <li><NavLink to='/syncs'>Syncs</NavLink></li>
+          {/* <li><NavLink to='/syncs'>Syncs</NavLink></li> */}
+          <li><NavLink to='/all-posts' exact>Posts</NavLink></li>
           <li><NavLink to='/about' exact>About</NavLink></li>
           <li><NavLink to='/contact' exact>Contact</NavLink></li>
           <li><NavLink to='/new-post' exact>New</NavLink></li>
+          
+          <li><span id="beta_label">beta</span></li>
         </ul>
       </div>
       <div className="toolbar__toggle-button">

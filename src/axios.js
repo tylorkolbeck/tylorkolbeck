@@ -6,8 +6,9 @@ const instance = axios.create({
   // baseURL: 'https://jsonplaceholder.typicode.com' 
 
   // Firebase database
-  baseURL: 'https://my-website-8af43.firebaseio.com',
-  Authorization: 'AIzaSyDujaaPXAWWkkPVl773HB6mUHEZFd7a8no'
+  // baseURL: 'https://my-website-8af43.firebaseio.com',
+  baseURL: 'http://localhost:3000'
+  // Authorization: 'AIzaSyDujaaPXAWWkkPVl773HB6mUHEZFd7a8no'
 
 })
 
