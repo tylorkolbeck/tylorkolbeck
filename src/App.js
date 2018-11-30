@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import Toolbar from './components/Toolbar/Toolbar'
@@ -9,6 +9,8 @@ import Home from './containers/Home/Home'
 import FullPost from './containers/FullPost/FullPost'
 import NewPost from './containers/NewPost/NewPost'
 import AllPosts from './containers/AllPosts/AllPosts'
+
+// import FilteredPosts from './containers/FilteredPosts/FilteredPosts'
 
 
 class App extends Component {
@@ -35,7 +37,6 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter basename="/">
         <div className="App">
 
           {/* All the navigation stuff */}
@@ -50,10 +51,10 @@ class App extends Component {
               <Route path="/" exact component={Home} />
               {/* <Route path="/syncs" exact component={AllSyncs} /> */}
               <Route path="/new-post" exact component={NewPost} />
-              <Route path="/all-posts"  component={AllPosts} />
-             
+              <Route path="/all-posts/"  component={AllPosts} />
+              <Route path="all-post/filter" component={AllPosts} />
               <Route path="/posts/:id" exact component={FullPost} />
-              <Route path="/posts/filter/:filterTag" exact component={AllPosts}/>
+              {/* <Route path="/posts/filter/:filterTag" exact component={AllPosts}/> */}
               
               {/* Catch any unknown routes */}
               <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
@@ -64,7 +65,6 @@ class App extends Component {
             
           </main>
         </div>
-      </BrowserRouter>
     );
   }
 }

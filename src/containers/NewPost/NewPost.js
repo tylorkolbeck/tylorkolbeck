@@ -34,6 +34,7 @@ class NewPost extends Component  {
       visible: true,
       submitted: false,
     }
+    console.log(data)
     // The HTTP Request
     // postRef.child(data.id).set(data)
       .then(res => {
