@@ -6,8 +6,8 @@ body {
 
 main {
   position: relative;
-  margin: 0px;
-  padding: 0px;
+  margin: 16px;
+  padding: 16px;
   height: 100%;
   width: 100%;
   max-width:1200px;

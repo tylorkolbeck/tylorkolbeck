@@ -3,10 +3,10 @@ import './NewPost.css'
 
 
 import { Redirect } from 'react-router-dom'
+import axios from 'axios';
 
 class NewPost extends Component  {
-  state ={
-    id: 0,
+  state = {
     title: 'TITLE 1',
     date: '',
     body: 'BODY 1',
@@ -17,8 +17,7 @@ class NewPost extends Component  {
   }
 
   componentDidMount() {
-    this.randomIdGenerator()
-    this.getNewDate()
+    // this.getNewDate()
   }
 
   postDataHandler = () => {
@@ -28,7 +27,6 @@ class NewPost extends Component  {
       body: this.state.body,
       author: this.state.author,
       description: this.state.description,
-      date: this.state.date,
       tags: this.state.tags,
       id: this.state.id,
       visible: true,
@@ -37,6 +35,7 @@ class NewPost extends Component  {
     console.log(data)
     // The HTTP Request
     // postRef.child(data.id).set(data)
+    axios.get('/all-posts')
       .then(res => {
         
         // this.props.history.replace('/syncs') // This will prevent going back to the new post page again
@@ -49,26 +48,26 @@ class NewPost extends Component  {
       })
   }
 
-  randomIdGenerator = () => {
-    let newId = Math.random().toString(36).substr(2, 9)
-    this.setState({id: newId}) 
-  }
+  // randomIdGenerator = () => {
+  //   let newId = Math.random().toString(36).substr(2, 9)
+  //   this.setState({id: newId}) 
+  // }
 
-  getNewDate = () => {
-    let month, day, year, dateObj, newDate;
-    dateObj = new Date()
-    month = dateObj.getUTCMonth() + 1
-    day = dateObj.getUTCDate()
-    year = dateObj.getUTCFullYear()
-    newDate = day + " " + month + " " + year
-    // console.log(newDate)
-    this.setState({date: newDate})
-  }
+  // getNewDate = () => {
+  //   let month, day, year, dateObj, newDate;
+  //   dateObj = new Date()
+  //   month = dateObj.getUTCMonth() + 1
+  //   day = dateObj.getUTCDate()
+  //   year = dateObj.getUTCFullYear()
+  //   newDate = day + " " + month + " " + year
+  //   // console.log(newDate)
+  //   this.setState({date: newDate})
+  // }
   
   render () {
     let redirect = null
     if (this.state.submitted) {
-      redirect = <Redirect to="/syncs" />
+      redirect = <Redirect to="/all-posts" />
     }
 
     return (

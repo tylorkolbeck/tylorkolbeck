@@ -6,7 +6,7 @@ const instance = axios.create({
   // baseURL: 'https://jsonplaceholder.typicode.com' 
 
   // Firebase database
-  // baseURL: 'https://my-website-8af43.firebaseio.com',
+  // baseURL: 'https://my-website-8af43.firebaseio.com',git 
   baseURL: 'http://localhost:3000'
   
 
