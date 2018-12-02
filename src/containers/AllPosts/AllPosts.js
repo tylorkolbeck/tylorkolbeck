@@ -39,6 +39,12 @@ class AllPosts extends Component {
 
         // Set state to the fetched posts object
         this.setState({posts:updatedPosts})
+
+        // TODO: #################### SET THIS TOKEN IN LOCAL STORAGE ##########################
+        // Set the authorization token here.  This is temporary and will be set when logging in
+        let testToken = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InR5bG9yLmtvbGJlY2tAZ21haWwuY29tIiwidXNlcklkIjoiNWJmZTM1MTc2MzRiNTViNTVhY2ViNzA0IiwiaWF0IjoxNTQzNjQxODU1LCJleHAiOjE1NDQ1MDU4NTV9.0bH952-rZrtADG4Yag6l94Z5RL6JZR_ssUi8TAlWTVQ"
+        localStorage.clear()
+        localStorage.setItem('Authorization', testToken)
       })
       
       // Catch any errors 
