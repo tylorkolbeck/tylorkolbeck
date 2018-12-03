@@ -1,0 +1,93 @@
+.users_login_container {
+    display: inline-block;
+    margin: auto;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0px 0px 5px 5px;
+    margin-top: 50px;
+    /* background: lightblue; */
+    border-radius: 8px;
+}
+
+.users_login_container h2 {
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-weight: 100;
+    padding: 16px;
+}
+
+.users_login_container label {
+    display: block; 
+    width: 150px;
+    font-size: 1rem;
+    border: 0px;
+    color: rgb(49, 49, 49);
+    text-align: left;
+    padding: 16px;
+    padding-left: 0px;
+}
+
+.users_login_container label:first-of-type {
+    padding-top: 0px;
+}
+
+.users_login_container input:focus {
+    background: #f2f2f2;
+}
+
+.users_login_container input{
+    display: block;
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 300px;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 8px;
+}
+
+.users_login_container .login_header {
+    width: 100%;
+    /* border-bottom: 1px solid salmon; */
+    background: #ccc;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.users_login_form_container {
+    padding: 32px;
+    border-top: 0px;
+    border: 1px solid #ccc;
+    border-color: #ccc;
+    border-radius: 0px 0px 8px 8px;
+
+}
+
+.users_login_container button {
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    margin: 10px 10px;
+    outline: none;
+    padding: 8px;
+    color:rgb(49, 49, 49);
+    border-radius: 5px;
+}
+
+.users_login_container button:hover {
+    cursor: pointer;
+    background: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+
+  
+  @media (max-width: 768px) {
+   
+  } 
+  
+  @media (min-width: 769px) {
+    
+  }
+  

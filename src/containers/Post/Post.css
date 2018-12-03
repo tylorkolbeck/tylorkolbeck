@@ -26,7 +26,7 @@
   }
   
   .Sync h1:hover {
-    color: #DA1C5C;
+    color: rgba(193, 64, 107, 1);
     cursor: pointer;
       -webkit-transition: color 500ms linear;
       -ms-transition: color 500ms linear;
@@ -106,7 +106,7 @@
     /* border: 1px solid grey; */
     border-radius: 3px 3px 0 0;
     padding: 3px;
-    background: #DA1C5C;
+    background: rgba(193, 64, 107, .5);
     color: white;
   }
   
@@ -128,14 +128,14 @@
     border-radius: 3px;
     margin: 5px;
     /* border: 1px solid #ccc; */
-    background-color:rgb(218, 28, 92, .2);
+    background-color:rgba(193, 64, 107, .2);
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
     color: #4d4d4d;
   }
 
   .tag_block:hover {
-    background-color: #DA1C5C;
+    background-color: rgba(193, 64, 107, 1);
     color: white;
     cursor: pointer;
   }
@@ -178,7 +178,7 @@
     .sync__date__mobile {
       display: inline-block;
       font-size: 1rem;
-      color: #DA1C5C;
+      color: rgba(193, 64, 107, 1);
       padding-left: 5px;
     }
   }

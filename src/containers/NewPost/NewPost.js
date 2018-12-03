@@ -9,11 +9,11 @@ class NewPost extends Component  {
   state = {
     submitted: false,
     
-    title: 'TITLE 1',
-    author: 'Tylor Kolbeck',
-    bodyText: 'BODY 1',
-    description: 'DESCRIPTION 1',
-    tags: ['somthing'],
+    title: '',
+    author: '',
+    bodyText: '',
+    description: '',
+    tags: [],
     category: '',
     postImages: [],
     isPublic: false
@@ -54,8 +54,7 @@ class NewPost extends Component  {
     for ( const key in this.state ) {
       formData.append(key, data[key])
     }
-    formData.append('title', 'axios')
-    formData.append('author', 'axios author')
+
     // The HTTP Request
     // postRef.child(data.id).set(data)
     axios({
@@ -94,53 +93,38 @@ class NewPost extends Component  {
         {/*  IF PAGE IS SUBMITTED THEN REDIRECT TO SYNCS */}
         {redirect}
         {/* <button onClick={this.postDataHandler}>Add Post</button> */}
-      
-          <div>
-            {/* TITLE INPUT */}
-            <label>Title</label>
-            <input type='text' style={{width: '100%'}} value={this.state.title} onChange={event => this.setState({title: event.target.value})} />
-          </div>
 
-          <div>
-            {/* AUTHOR INPUT */}
-            <label>Author</label>
-            <input type='text' value={this.state.author} onChange={event => this.setState({author: event.target.value})} />
-          </div>
-
-          <div>
-            {/* TAGS INPUT */}
-            <label>Tags</label>
-            <input type='text' style={{width: '100%'}} value={this.state.tags} onChange={event => this.tagsFormatter(event.target.value)} />
-          </div>
-
-          <div>
-            {/* CATEGORY INPUT MAY BE IMPLEMENTED IN THE FUTURE, MAKE A DROPDOWN? */}
-            <label>Category</label>
-            <input type='text' style={{width: '100%'}} value={this.state.category} onChange={event => this.setState({category: event.target.value})} />
-          </div>
-
-
-          <div>
-            {/* DESCRIPTION INPUT */}
-            <label>Description</label>
-            <textarea value={this.state.description}  style={{width: '100%', height: '100px'}} onChange={event => this.setState({description: event.target.value})}> </textarea>
-          </div>
+          <div className="newpost_form_container">
           
-          <div className='new__post__textarea-body'>
-            {/* BODY INPUT */}
-            <label>Body</label>
-            <textarea value={this.state.bodyText} style={{width: '100%', height: '1000px'}} onChange={event => this.setState({bodyText: event.target.value})}></textarea>
-          </div>
-
-          <div>
-            {/* IMAGES UPLOADING INPUT. FIGURE THIS OUT EVENTUALLY */}
-            <label>Images</label>
-            <input type='text' style={{width: '100%'}} value={"IMAGE UPLOADING FUTURE"} readOnly/>
-          </div>
+            <label style={{marginTop: '30px'}}>Title</label>
+            <input type='text' onChange={event => this.setState({title: event.target.value})} />
+          
+            <label style={{marginTop: '30px'}}>Author</label>
+            <input type='text' onChange={event => this.setState({author: event.target.value})} />
         
-        <button onClick={this.postDataHandler}>Add Post</button>
-        {/* SAVE FOR LATER SHOULD SET ISPUBLIC TO FALSE */}
-        <button onClick={this.postDataHandler}>Save For Later</button> 
+            <label>Tags</label>
+            <input type='text' onChange={event => this.tagsFormatter(event.target.value)} />
+          
+            <label>Category</label>
+            <input type='text' onChange={event => this.setState({category: event.target.value})} />
+          
+
+            <label>Description</label>
+            <textarea onChange={event => this.setState({description: event.target.value})} />
+
+            <label>Body</label>
+            <textarea style={{height: '800px'}} onChange={event => this.setState({bodyText: event.target.value})}></textarea>
+
+            <label>Images</label>
+            <input type="file" readOnly/> 
+            <input type="file" readOnly/> 
+            <input type="file" readOnly/> 
+        
+
+            <button onClick={this.postDataHandler}>Add Post</button>
+
+            <button onClick={this.postDataHandler}>Save For Later</button> 
+          </div>
       </div>
       
     )

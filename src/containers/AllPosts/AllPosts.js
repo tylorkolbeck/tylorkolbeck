@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import './AllPosts.css'
 // import Sync from './Sync/Sync'
-import axios from '../../axios';
+import axios from '../../axios'
 import Post from '../Post/Post'
 // import { Z_BLOCK } from 'zlib';
 // import { runInThisContext } from 'vm';
 
 class AllPosts extends Component {
-  
   state = {
     filter: [],
     posts: [],
@@ -42,9 +41,6 @@ class AllPosts extends Component {
 
         // TODO: #################### SET THIS TOKEN IN LOCAL STORAGE ##########################
         // Set the authorization token here.  This is temporary and will be set when logging in
-        let testToken = "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InR5bG9yLmtvbGJlY2tAZ21haWwuY29tIiwidXNlcklkIjoiNWJmZTM1MTc2MzRiNTViNTVhY2ViNzA0IiwiaWF0IjoxNTQzNjQxODU1LCJleHAiOjE1NDQ1MDU4NTV9.0bH952-rZrtADG4Yag6l94Z5RL6JZR_ssUi8TAlWTVQ"
-        localStorage.clear()
-        localStorage.setItem('Authorization', testToken)
       })
       
       // Catch any errors 

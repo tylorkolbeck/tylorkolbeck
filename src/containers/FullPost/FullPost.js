@@ -21,37 +21,58 @@ class FullPost extends Component {
           console.log(this.state.loadedPost)
         })
         .catch(err => {
-          console.log("[ERROR]" , err)
+          console.log(err)
         })
     }
+  }
+
+  dateConversion = (ISODate) => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const dateArray = []
+    const date = new Date(ISODate);
+    dateArray.push(date.getDate() + ' ')
+    dateArray.push(months[date.getMonth()] + ' ')
+    dateArray.push(date.getFullYear() + ' ')
+    return dateArray
   }
 
   render() {
     let sync = <p style={{textAlign: 'center'}}>Loading</p>
 
-    // if (this.props.id) {
-    //   sync = <p>Loading</p>
-    //   // sync = <h1>Full sync!{this.props.match.params.id}</h1>
-    // }
-
     if (this.state.loadedPost) {
       let syncData = this.state.loadedPost.doc
       console.log("TEST" + syncData)
-     
-      const tagLoop = (arr) => { // FIX THIS CHECK TO SEE IF THERE ARE ACTUALLY TAGS OR NOT
-        if (Array.isArray(arr)) {
-          return arr.join(' | ')
-        } else {
-          return arr
-        }
-      }
 
+      const getFilters = () => { 
+        const filterArray = []
+        if (syncData.tags.length > 0) {
+          syncData.tags.forEach((tag) => {
+            filterArray.push(
+                <span key={tag} className='fullpost__tag_block'> 
+                {tag + ' '}
+                </span>     
+              )
+          })
+        }
+         else if (syncData.tags.length === 0) {
+          return null
+        }
+        
+        return filterArray
+      }
+    
       sync = (
         <div className="FullPost">
-          <h1>{syncData.title}</h1>
-          <h3><span className='bold'>By: </span>{syncData.author} - <span className="fullpost__date"> {syncData.createdAt} </span ></h3>
-          <p className='bold'><span className='bold'>Tags: </span> <span style={{fontSize: '1.3rem'}}>{tagLoop(syncData.tags)}</span></p>
-          <p><span className='tab'> </span>{syncData.description}</p>
+          <div className="fullpost__header"style={{textAlign: 'center', width: '100%'}}>
+            <h1 className="fullpost__title">{syncData.title}</h1>
+            <h3><span className='fullpost__author'>{syncData.author}</span></h3>
+          </div>
+          
+          <h3><span className="fullpost__date"><span className='bold'>Posted: </span>{this.dateConversion(syncData.createdAt)} </span ></h3>
+          <h3><span className='fullpost__date'><span className='bold'>Tags: </span> <span style={{fontSize: '1.3rem'}}>{getFilters()}</span></span></h3>
+          
+          <p className="fullpost__description">{syncData.description}</p>
+
           <p><span className='tab'> </span> Body - {syncData.bodyText}</p>
         </div>
       )

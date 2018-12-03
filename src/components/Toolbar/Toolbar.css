@@ -24,11 +24,12 @@
   top: 0;
   height: 86px;
   width: auto;
-  padding: 26px;
+  padding: 16px;
+  padding-left: 0px;
 }
 
-.toolbar__logo a{
-  color: #4d4d4d; 
+.toolbar__logo a {
+  color: #4d4d4d;
   text-decoration: none;
   font-size: 1.5rem;
 }
@@ -45,7 +46,7 @@
   transform: rotate(15deg);
 }
 
-.toolbar__navigation__items ul{
+.toolbar__navigation__items ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -56,7 +57,8 @@
   padding: 0 1rem;
 }
 
-.toolbar__navigation__items a {
+.toolbar__navigation__items a,
+.menu_login_link {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   color: #4d4d4d;
@@ -65,14 +67,19 @@
   padding-bottom: 5px;
 }
 
+.menu_login_link:hover {
+  color: #c1406b;
+  cursor: pointer;
+}
+
 .toolbar__navigation__items a:hover,
 .toolbar__navigation__items a:active,
 .toolbar__navigation__items a.active {
-  color: #DA1C5C;
+  color: #c1406b;
 }
 
 .toolbar__navigation__items a.active {
-  border-bottom: 2px solid #DA1C5C;
+  border-bottom: 2px solid #c1406b;
 }
 
 .toolbar__navigation__items.active {
@@ -84,7 +91,7 @@
   .toolbar__navigation__items {
     display: none;
   }
-} 
+}
 
 @media (min-width: 769px) {
   .toolbar__toggle-button {

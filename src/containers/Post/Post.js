@@ -28,9 +28,9 @@ const post = props => {
     
         <div className='sync__main__info'>
             <h1 onClick={props.clicked}>{props.title}</h1>
-            <h3><span className='bold' style={{fontSize: '.9rem'}}>Author: </span><span style={{fontSize: '.9rem'}}>{props.author} </span> <span className='sync__date__mobile'>{props.date[2] + props.date[1].toUpperCase() + props.date[0].toString().slice(-2)}</span></h3>
-            <p><span className='tab'> </span>{props.description}</p>
-            <div className='tags'><span>{tagLoop(props.tags)}</span></div>
+            <h3><span className='bold' style={{fontSize: '.9rem', paddingLeft: '16px'}}>Author: </span><span style={{fontSize: '.9rem'}}>{props.author} </span> <span className='sync__date__mobile'>{props.date[2] + props.date[1].toUpperCase() + props.date[0].toString().slice(-2)}</span></h3>
+            <p style={{paddingLeft: '16px'}}>{props.description}</p>
+            <div className='tags' style={{paddingLeft: '16px'}}><span>{tagLoop(props.tags)}</span></div>
         </div>
 
         </div>

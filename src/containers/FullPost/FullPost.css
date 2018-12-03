@@ -1,11 +1,49 @@
 .FullPost {
+  position: relative;
   font-family: 'Montserrat', sans-serif;
+  color: #555;
+  width: 100%;
+  margin: auto;
 }
 
 .FullPost h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  font-size: 2.3rem;
+  font-size: 3.5rem;
+  font-weight: 100;
+}
+
+.fullpost__title {
+  color:#555;
+  display: block;
+  margin: auto;
+  font-style: italic;
+  border-radius: 3px;
+}
+
+.fullpost__header {
+  padding: 50px 0px;
+}
+
+.fullpost__description {
+  border-left: 2px solid #c1406b;
+  margin-left: 20px;
+  padding-left: 8px;
+  font-style: italic;
+}
+
+.fullpost__author {
+  border: 1px solid #c1406b;
+  border-radius: 2px;
+  padding: 8px;
+  color: #c1406b;
+  font-size: .9rem;
+}
+
+.fullpost__tag_block {
+  font-size: .9rem;
+  padding-left: 8px;
+  display: inline-block;
 }
 
 .FullPost h3 {
@@ -17,7 +55,7 @@
 .FullPost p {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.3rem;
-  line-height: 130%;
+  line-height: 150%;
   letter-spacing: .03rem;
   font-weight: 400;
 }
