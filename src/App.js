@@ -87,18 +87,12 @@ class App extends Component {
           
               <Switch> 
                 <Route path="/" exact component={Home} />
-                {/* <Route path="/syncs" exact component={AllSyncs} /> */}
-                <Route path="/new-post" exact component={NewPost} />
-                <Route path="/all-posts/"  exact component={AllPosts} />
+                <Route path="/new-post" exact render={() => <NewPost userId={this.state.userId}/>}/>
+                {/* <Route path="/all-posts"  exact component={AllPosts} /> */}
+                <Route path="/all-posts" exact render={() => <AllPosts userId={this.state.userId}/>}/>
                 <Route path="all-post/filter" exact component={AllPosts} />
                 <Route path="/posts/:id" exact component={FullPost} />
-                <Route path="/users/login" exact 
-                  render={() => 
-                    // <Login loginCheck={this.loginOrLogout} />} 
-                    <Login userID={this.state.userId} loginCheck={() => {this.userIdSessionHandler()}}/>} 
-
-                />
-
+                <Route path="/users/login" exact render={() => <Login userID={this.state.userId} loginCheck={() => {this.userIdSessionHandler()}}/>} />
                 <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
               </Switch>
             

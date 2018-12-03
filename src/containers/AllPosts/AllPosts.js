@@ -7,6 +7,7 @@ import Post from '../Post/Post'
 // import { runInThisContext } from 'vm';
 
 class AllPosts extends Component {
+  _ismounted = false;
   state = {
     filter: [],
     posts: [],
@@ -17,9 +18,9 @@ class AllPosts extends Component {
 
   // Once everything is mounted get the post data.
   componentDidMount() {
+    this._ismounted = true
     const urlParam = this.state.filter.length > 0 ? '/posts/filter/' + this.state.filter : '/posts'
 
-    // axios.get('/posts')
     if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id))
     axios.get(urlParam)
       .then((response) => {
@@ -37,7 +38,10 @@ class AllPosts extends Component {
         })
 
         // Set state to the fetched posts object
-        this.setState({posts:updatedPosts})
+        if (this._ismounted) {
+          this.setState({posts:updatedPosts})
+        }
+        
 
         // TODO: #################### SET THIS TOKEN IN LOCAL STORAGE ##########################
         // Set the authorization token here.  This is temporary and will be set when logging in
@@ -45,10 +49,17 @@ class AllPosts extends Component {
       
       // Catch any errors 
       .catch(error => { // Check for any error.  Handle this in the future.
-        this.setState({error: error})
-        console.log(error) 
-        console.log(axios.head) 
+        if (this._ismounted) {
+          this.setState({error: error})
+          console.log(error) 
+          console.log(axios.head) 
+        }
+       
       })
+  }
+
+  componentWillUnmount() {
+   this._ismounted = false
   }
 
   postSelectedHandler = (id) => {
@@ -196,6 +207,7 @@ class AllPosts extends Component {
         return ( 
         <Post 
           key={key}
+          userId={this.props.userId}
           id={post._id}
           title={post.title}
           author={post.author}

@@ -1,32 +1,29 @@
 import React, { Component } from 'react'
 import './NewPost.css'
-
-
-import { Redirect } from 'react-router-dom'
+import history from '../../history'
 import axios from 'axios';
 
 class NewPost extends Component  {
   state = {
     submitted: false,
     
-    title: '',
-    author: '',
-    bodyText: '',
-    description: '',
-    tags: [],
-    category: '',
+    title: localStorage.getItem('title') ? localStorage.getItem('title') : '',
+    author: localStorage.getItem('author') ? localStorage.getItem('author') : '',
+    bodyText: localStorage.getItem('bodyText') ? localStorage.getItem('bodyText') : '',
+    description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
+    tags: localStorage.getItem('tags') ? localStorage.getItem('tags') : '',
+    category: localStorage.getItem('category') ? localStorage.getItem('category') : '',
     postImages: [],
     isPublic: false
   }
 
   componentDidMount() {
-    console.log('[COMPONENTDIDMOUNT]')
-
+    console.log(this.state.title)
   }
 
   componentDidUpdate() {
-    console.log('[COMPONENTDIDUPDATE')
-    console.log(this.state)
+    // console.log('[COMPONENTDIDUPDATE')
+    // console.log(this.state)
   }
 
   tagsFormatter(tags) {
@@ -35,11 +32,21 @@ class NewPost extends Component  {
     this.setState({tags: tagsArray})    
   }
 
+  updateStateHandler(event) {
+    let fieldName = event.target.name
+    let fieldValue = event.target.value
+    this.setState({[fieldName]: fieldValue})
+    // console.log('FIELDNAME: ', fieldName)
+    // console.log('FIELDVALUE: ', fieldValue)
+    localStorage.setItem(fieldName, fieldValue)
+    this.setState({fieldName: fieldValue})
+    console.log(this.state)
+  }
+
   // MAY NOT NEED THIS DATA OBJECT JUST SEND STATE TO SERVER
   postDataHandler = () => {
     const data ={
       submitted: false,
-
       title: this.state.title,
       author: this.state.author,
       bodyText: this.state.bodyText,
@@ -69,64 +76,77 @@ class NewPost extends Component  {
       },
     })
       .then(res => {
+        const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
         console.log(res.err)
         
         // this.props.history.replace('/syncs') // This will prevent going back to the new post page again
 
         // Redirect to the syncs page after submitting
         this.setState({submitted: true}) // This will prevent going back to the new post page again
+        fieldNames.forEach((name) => {
+          localStorage.removeItem(name)
+        })
+       
       })
+      .then(() =>  history.push('/all-posts'))
       .catch(err => {
         console.log("[POST - ERROR] - ", err)
       })
   }
   
   render () {
-    let redirect = null
-    if (this.state.submitted) {
-      redirect = <Redirect to="/all-posts" />
+    let showNewPostForm = null
+    if (this.props.userId) {
+      showNewPostForm = 
+      <div className='NewPost'>
+
+      {/*  IF PAGE IS SUBMITTED THEN REDIRECT TO SYNCS */}
+
+      {/* <button onClick={this.postDataHandler}>Add Post</button> */}
+
+        <div className="newpost_form_container">
+        
+          <label style={{marginTop: '30px'}}>Title</label>
+          {/* <input type='text' name="tile" onChange={event => this.setState({title: event.target.value})} /> */}
+          <input type='text' name="title" value={this.state.title} onChange={event => this.updateStateHandler(event)} />
+        
+          <label style={{marginTop: '30px'}}>Author</label>
+          <input type='text' name='author' value={this.state.author} onChange={event => this.updateStateHandler(event)} />
+      
+          <label>Tags</label>
+          <input type='text' name="tags" value={this.state.tags} onChange={event => this.updateStateHandler(event)} />
+        
+          <label>Category</label>
+          <input type='text' name="category" value={this.state.category} onChange={event => this.updateStateHandler(event)} />
+        
+
+          <label>Description</label>
+          <textarea name="description" value={this.state.description} onChange={event => this.updateStateHandler(event)} />
+
+          <label>Body</label>
+          <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea>
+
+          <label>Images</label>
+          <input type="file" readOnly/> 
+          <input type="file" readOnly/> 
+          <input type="file" readOnly/> 
+      
+
+          <button onClick={this.postDataHandler}>Add Post</button>
+
+          <button onClick={this.postDataHandler}>Save For Later</button> 
+        </div>
+    </div>
+    
+    } else {
+      showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
     }
 
     return (
-      <div className='NewPost'>
-
-        {/*  IF PAGE IS SUBMITTED THEN REDIRECT TO SYNCS */}
-        {redirect}
-        {/* <button onClick={this.postDataHandler}>Add Post</button> */}
-
-          <div className="newpost_form_container">
-          
-            <label style={{marginTop: '30px'}}>Title</label>
-            <input type='text' onChange={event => this.setState({title: event.target.value})} />
-          
-            <label style={{marginTop: '30px'}}>Author</label>
-            <input type='text' onChange={event => this.setState({author: event.target.value})} />
-        
-            <label>Tags</label>
-            <input type='text' onChange={event => this.tagsFormatter(event.target.value)} />
-          
-            <label>Category</label>
-            <input type='text' onChange={event => this.setState({category: event.target.value})} />
-          
-
-            <label>Description</label>
-            <textarea onChange={event => this.setState({description: event.target.value})} />
-
-            <label>Body</label>
-            <textarea style={{height: '800px'}} onChange={event => this.setState({bodyText: event.target.value})}></textarea>
-
-            <label>Images</label>
-            <input type="file" readOnly/> 
-            <input type="file" readOnly/> 
-            <input type="file" readOnly/> 
-        
-
-            <button onClick={this.postDataHandler}>Add Post</button>
-
-            <button onClick={this.postDataHandler}>Save For Later</button> 
-          </div>
+      <div>
+        {showNewPostForm}
       </div>
-      
+     
     )
   }
 }
