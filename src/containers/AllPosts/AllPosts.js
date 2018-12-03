@@ -5,6 +5,7 @@ import axios from '../../axios'
 import Post from '../Post/Post'
 // import { Z_BLOCK } from 'zlib';
 // import { runInThisContext } from 'vm';
+import history from '../../history'
 
 class AllPosts extends Component {
   _ismounted = false;
@@ -63,7 +64,7 @@ class AllPosts extends Component {
   }
 
   postSelectedHandler = (id) => {
-    this.props.history.push({pathname: 'posts/' + id})
+    history.push('posts/' + id)
   }
   
   filterPostsByTag = (e) => {
