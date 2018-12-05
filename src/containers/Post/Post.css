@@ -154,6 +154,27 @@
     border-radius: 5px;
     vertical-align: top;
     float: right;
+    margin: 5px;
+  }
+
+  .post__edit_post_button {
+    color: #2EA399;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    padding-left: 20px;
+    font-size: 1rem;
+    /* float: right; */
+    border: 1px solid #2EA399;
+    padding: 1px 10px;
+    border-radius: 5px;
+    vertical-align: top;
+    margin: 5px;
+  }
+
+  .post__edit_post_button:hover {
+    background: #2EA399;
+    color: white;
+    cursor: pointer;
   }
 
   .post__delete_post_button:hover {

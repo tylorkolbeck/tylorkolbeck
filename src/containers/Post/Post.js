@@ -1,31 +1,44 @@
 import React, { Component } from 'react'
-// import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './Post.css'
 import { deletePostHandler } from './deletePost'
+import history from '../../history'
 
 class post extends Component {
   state = {
     isDeleted: false
   }
 
+  componentDidMount(){ 
+
+  }
+
   setDeletedStateHandler() {
     this.setState({isDeleted: true})
   }
 
-
-  showDeleteButton() {
-    let deleteButton = null
+  showAdminButtons() {
+    let propsToPass = {
+      userId: this.props.userId,
+      postId: this.props.id
+    }
+    let userId = this.props.userId
+    let adminButtons = null
     let isAdmin = this.props.userId ? true : false
     if (isAdmin && this.props.adminMode) {
-      deleteButton = <span id={this.props.id} onClick={() => deletePostHandler(this.props.id, this.props.userId, this.setDeletedStateHandler.bind(this))} className="post__delete_post_button">x</span>
+      adminButtons = 
+        <div>
+          <span id={this.props.id} onClick={() => deletePostHandler(this.props.id, this.props.userId, this.setDeletedStateHandler.bind(this))} className="post__delete_post_button">x</span> 
+          <span id={this.props.id} onClick={() => history.push({pathname: '../edit-post/' + this.props.id, state:{...propsToPass}})} className="post__edit_post_button">edit</span>
+        </div>
     } 
-    return deleteButton
+    return adminButtons
   }
 
   tagLoop(arr) {
-    const tagArray = []
+    let tagArray = []
     if (Array.isArray(arr) && arr.length > 0) {
-      let arrayCounter = 0;
+      let arrayCounter = 0
       
       arr.forEach((tag)=> {
         if (tag.length > 0) {
@@ -34,13 +47,19 @@ class post extends Component {
         arrayCounter++
       })
       return tagArray
-    } 
-    return null
+    } else {
+      let arrayCounter = 0
+      let newTagArr = arr.split(',')
+      newTagArr.forEach(tag => {
+        tagArray.push(<div className='tag_block' key={tag + arrayCounter} onClick={this.props.tagFilter}>{tag}</div>)
+      })
+      return tagArray
+    }
+
   }
 
 render () {
     const displayNoneStyle = this.state.isDeleted ? {display: 'none'} : null
-    // const isPublic = (this.props.isPublic && this.props.adminMode) ? {background: 'rgb(192,216,144,.2)'} : {background: 'rgb(238,181,179,.2)'} ? {background: ''} : null
     
     const isPublic = () => {
       if (this.props.adminMode) {
@@ -58,17 +77,19 @@ render () {
 
     return (
       <div style={{...isPublic(), ...displayNoneStyle}} className='posts__post_details_container'>
+          
           <div className='Sync'>
           <div className='sync__date__desktop Courier'>
               <p className='month'>{this.props.date[1]}</p>
               <p className='date'>{this.props.date[2]}</p>
               <p className='year'>{this.props.date[0]}</p>
           </div>
-      
+         
           <div className='sync__main__info'>
+            <span style={{position: 'absolute', right: '16px'}}>{this.showAdminButtons()}</span>
             <div style={{width:'100%'}}>
               <h1 style={{display: 'inline-block', marginRight: '50px'}} onClick={(event) => this.props.clicked(event)}>{this.props.title}</h1>
-              <span style={{position: 'absolute', right: '16px'}}>{this.showDeleteButton()}</span>
+              
             </div>
               
               <h3><span className='bold' style={{fontSize: '.9rem', paddingLeft: '16px'}}>Author: </span><span style={{fontSize: '.9rem'}}>{this.props.author} </span> <span className='sync__date__mobile'>{this.props.date[2] + this.props.date[1].toUpperCase() + this.props.date[0].toString().slice(-2)}</span></h3>

@@ -11,6 +11,7 @@ import FullPost from './containers/FullPost/FullPost'
 import NewPost from './containers/NewPost/NewPost'
 import AllPosts from './containers/AllPosts/AllPosts'
 import history from './history'
+import EditPost from './containers/EditPost/EditPost'
 
 
 
@@ -104,6 +105,11 @@ class App extends Component {
                 <Route path="all-post/filter" exact component={AllPosts} />
                 <Route path="/posts/:id" exact component={FullPost} />
                 <Route path="/users/login" exact render={() => <Login userID={this.state.userId} loginCheck={() => {this.userIdSessionHandler()}}/>} />
+                <Route path="/edit-post/:postId" exact component={EditPost} />
+                <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/>
+
+                
+
                 <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
               </Switch>
             

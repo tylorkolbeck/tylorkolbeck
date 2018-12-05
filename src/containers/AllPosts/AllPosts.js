@@ -64,7 +64,6 @@ class AllPosts extends Component {
   }
 
   postSelectedHandler = (event, id) => {
-    console.log("####", event.target)
     history.push('posts/' + id)
   }
   
@@ -87,7 +86,6 @@ class AllPosts extends Component {
       tagString += 'filterId' + i + '=' + tag + '&' 
       i++
     })
-    
     tagString = tagString.slice(0, tagString.length -1)
 
     if (this.state.filter.length) {

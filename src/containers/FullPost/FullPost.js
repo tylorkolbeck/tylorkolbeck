@@ -11,6 +11,7 @@ class FullPost extends Component {
   }
 
   componentDidMount() {
+    console.log('sdsd',this.props.userId)
     if (this.props.match.params.id) {
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id))
       axios.get('/posts/' + this.props.match.params.id) // This retrieves the object at that location
