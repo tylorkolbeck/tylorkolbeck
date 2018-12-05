@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from '../../axios'
 import './FullPost.css'
+import ReactHtmlParser from 'react-html-parser'
 
 
 class FullPost extends Component {
@@ -46,6 +47,7 @@ class FullPost extends Component {
       const getFilters = () => { 
         const filterArray = []
         if (syncData.tags.length > 0) {
+      
           syncData.tags.forEach((tag) => {
             filterArray.push(
                 <span key={tag} className='fullpost__tag_block'> 
@@ -69,11 +71,11 @@ class FullPost extends Component {
           </div>
           
           <h3><span className="fullpost__date"><span className='bold'>Posted: </span>{this.dateConversion(syncData.createdAt)} </span ></h3>
-          <h3><span className='fullpost__date'><span className='bold'>Tags: </span> <span style={{fontSize: '1.3rem'}}>{getFilters()}</span></span></h3>
+          {/* <h3><span className='fullpost__date'><span className='bold'>Tags: </span> <span style={{fontSize: '1.3rem'}}>{getFilters()}</span></span></h3> */}
           
           <p className="fullpost__description">{syncData.description}</p>
 
-          <p><span className='tab'> </span> Body - {syncData.bodyText}</p>
+          <p> Body - {ReactHtmlParser(syncData.bodyText)}</p>
         </div>
       )
     }

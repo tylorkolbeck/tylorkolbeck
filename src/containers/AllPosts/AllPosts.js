@@ -223,9 +223,19 @@ class AllPosts extends Component {
     
     // If there are no errors then display the posts.
     if (!this.state.error) {
-      posts = this.state.posts.map(post => {
+      let postsToDisplay
+      if(this.state.adminMode) {
+        postsToDisplay = this.state.posts
+      } else {
+        postsToDisplay = this.state.posts.filter((post) => {
+          return post.isPublic
+        })
+      }
+
+      posts = postsToDisplay.map(post => {
         const date = post.createdAt
         const key = post._id
+        
         return ( 
         <Post 
           key={key}

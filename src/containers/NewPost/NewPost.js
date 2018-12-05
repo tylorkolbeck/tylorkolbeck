@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './NewPost.css'
 import history from '../../history'
 import axios from 'axios';
+import ReactHtmlParser from 'react-html-parser'
 
 class NewPost extends Component  {
   state = {
@@ -23,7 +24,7 @@ class NewPost extends Component  {
 
   componentDidUpdate() {
     // console.log('[COMPONENTDIDUPDATE')
-    // console.log(this.state)
+    console.log(this.state)
   }
 
   tagsFormatter(tags) {
@@ -126,16 +127,30 @@ class NewPost extends Component  {
           <label>Body</label>
           <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea>
 
+          <div className="newpost__live_preview_container">
+
+              {ReactHtmlParser(this.state.bodyText)}
+         
+          </div>
+
+          
           <label>Images</label>
           <input type="file" readOnly/> 
           <input type="file" readOnly/> 
           <input type="file" readOnly/> 
       
+      <div>
+        Is Public?
+        <label className="newpost__ispublic_container">
+            <input type="checkbox" onChange={(event) => this.setState({isPublic: event.target.checked})}></input>
+            <span className="newpost__ispublic_checkmark"></span>
+          </label>
+      </div>
+         
 
-          <button onClick={this.postDataHandler}>Add Post</button>
-
-          <button onClick={this.postDataHandler}>Save For Later</button> 
+          <button onClick={this.postDataHandler}>Add Post</button> 
         </div>
+        
     </div>
     
     } else {
@@ -145,6 +160,7 @@ class NewPost extends Component  {
     return (
       <div>
         {showNewPostForm}
+       
       </div>
      
     )

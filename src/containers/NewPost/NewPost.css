@@ -11,7 +11,7 @@
 
 .newpost_form_container {
   background: 'yellow';
-  width: 70%;
+  width: 80%;
   max-width: 1200px;
   margin: auto;
 }
@@ -76,6 +76,80 @@
   background: white;
   border: 1px solid lightgrey;
   border-radius: 5px;
+}
+
+.newpost__live_preview_container {
+  padding: 8px;
+  background-color: rgb(219, 219, 219, .3);
+  white-space: pre-wrap;
+  border-radius: 5px;
+}
+
+/* Customize the label (the container) */
+.newpost__ispublic_container {
+  display: block;
+  margin: 20px; 
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.newpost__ispublic_container input {
+  /* position: absolute; */
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.newpost__ispublic_checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.newpost__ispublic_container:hover input ~ .newpost__ispublic_checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.newpost__ispublic_container input:checked ~ .newpost__ispublic_checkmark {
+  background-color: #84BE6A;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.newpost__ispublic_checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.newpost__ispublic_container input:checked ~ .newpost__ispublic_checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.newpost__ispublic_container .newpost__ispublic_checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 @media (max-width: 768px) {
