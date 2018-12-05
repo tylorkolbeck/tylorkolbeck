@@ -55,7 +55,7 @@ class NewPost extends Component  {
       tags: this.state.tags,
       category: this.state.category,
       postImages: [],
-      isPublic: true
+      isPublic: this.state.isPublic
     }
 
     const formData = new FormData()
