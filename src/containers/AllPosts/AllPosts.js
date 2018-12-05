@@ -10,12 +10,12 @@ import history from '../../history'
 class AllPosts extends Component {
   _ismounted = false;
   state = {
+    numOfPosts: 0,
     filter: [],
     posts: [],
-    error: false
+    error: false,
+    adminMode: false
   }
-
-  // handleData = this.handleData.bind(this);
 
   // Once everything is mounted get the post data.
   componentDidMount() {
@@ -63,7 +63,8 @@ class AllPosts extends Component {
    this._ismounted = false
   }
 
-  postSelectedHandler = (id) => {
+  postSelectedHandler = (event, id) => {
+    console.log("####", event.target)
     history.push('posts/' + id)
   }
   
@@ -200,6 +201,26 @@ class AllPosts extends Component {
       }
     }
 
+    const editSlider = () => {
+      if (!this.props.userId) {
+        return null
+      }
+      if (this.props.userId) {
+        return (
+          <div>
+            <label className="allposts__edit_slider_label">Edit Mode </label>
+            <label className="allposts__edit_switch">
+              <input type="checkbox" onChange={(event) => this.setState({adminMode: event.target.checked})}/>
+            <span className="slider round"></span>
+            </label>
+          </div>
+          
+        )
+      }
+    }
+
+      
+    
     // If there are no errors then display the posts.
     if (!this.state.error) {
       posts = this.state.posts.map(post => {
@@ -215,9 +236,11 @@ class AllPosts extends Component {
           description={post.description}
           date = {this.dateConversion(date)}
           tags={post.tags}
-          clicked={()=> this.postSelectedHandler(post._id)}
+          clicked={(event)=> this.postSelectedHandler(event, post._id)}
           location={this.state.location}
           tagFilter={this.filterPostsByTag}
+          isPublic={post.isPublic}
+          adminMode={this.state.adminMode}
         />
         )
       })
@@ -225,7 +248,8 @@ class AllPosts extends Component {
 
     return (
       <div className='AllPostsContainer'>
-      
+        {editSlider()}
+        
         {filterSpan()}
         {getFilters()}
         {posts}

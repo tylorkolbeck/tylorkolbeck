@@ -46,7 +46,7 @@ class login extends Component {
                 localStorage.removeItem('userId')
                 localStorage.setItem('Authorization', newToken)
                 localStorage.setItem('userId', res.data.userId)
-                this.props.loginCheck()
+                this.props.loginCheck(res.data.userId)
                 history.goBack()
             })
             .catch((err) => {

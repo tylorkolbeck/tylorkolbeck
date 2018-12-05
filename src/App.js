@@ -29,7 +29,15 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    if (localStorage.getItem('Authorization') && localStorage.getItem('userId')) {
+      this.setState({userId: localStorage.getItem('userId')})
+    }
+  
+  }
+
   componentDidUpdate() {
+    
   }
   
   drawerToggleClickHandler = () => {
@@ -43,10 +51,13 @@ class App extends Component {
   }
 
   userIdSessionHandler = () => {
+    console.log('RUNNING LOGIN CHECK')
     if (this.state.userId !== false) {
+      console.log('REMOVING OLD USER ID')
       this.setState({userId: false})
     }
-    if (!this.state.userId && localStorage.getItem('userId')) {
+    if (localStorage.getItem('userId')) {
+      console.log('SHOULD BE USER ID SET')
       this.setState({userId: localStorage.getItem('userId')})
     }
   }
