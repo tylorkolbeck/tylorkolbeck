@@ -1,0 +1,38 @@
+.contactMsgs_title {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    /* border: 2px solid rgb(231, 231, 231); */
+    /* background: yellow; */
+}
+
+.contactMsgs_title h1 {
+    /* display: block; */
+    font-family: 'Montserrat', sans-serif;
+    /* background: rgb(231, 231, 231); */
+    /* padding: 16px; */
+    border-radius: 3px 3px 0px 0px;
+    margin-bottom: '50px';
+    width: 100%;
+    /* box-sizing: border-box; */
+    margin: auto;
+}
+
+.contactMsgs__header_notification {
+    width: 80%;
+    margin: auto;
+    position: relative;
+}
+
+
+@media (max-width: 500px) {
+    .contactMsgs_title {
+        border: 0px;
+        padding: 10px;
+    }
+
+    .contactMsgs__header_notification {
+        width: 100%;
+    }
+
+
+}

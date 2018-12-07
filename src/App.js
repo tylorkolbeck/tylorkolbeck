@@ -12,6 +12,7 @@ import NewPost from './containers/NewPost/NewPost'
 import AllPosts from './containers/AllPosts/AllPosts'
 import history from './history'
 import EditPost from './containers/EditPost/EditPost'
+import ContactMsgs from './containers/ContactMsgs/ContactMsgs'
 
 
 
@@ -107,6 +108,8 @@ class App extends Component {
                 <Route path="/users/login" exact render={() => <Login userID={this.state.userId} loginCheck={() => {this.userIdSessionHandler()}}/>} />
                 <Route path="/edit-post/:postId" exact component={EditPost} />
                 <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/>
+                <Route path="/contactMsgs" exact render={() => <ContactMsgs userId={this.state.userId}/>}/>
+
 
                 
 

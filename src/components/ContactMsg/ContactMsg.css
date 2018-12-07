@@ -1,0 +1,86 @@
+.contactMsg__message_container {
+    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.contactMsg__message_container .msg_label {
+    font-weight: bold;
+}
+
+.contactMsg__message_container .msg_text {
+    padding: 16px;
+}
+
+.contactMsg__action_button {
+    /* border: 1px solid #ccc; */
+    font-size: .8rem;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.contactMsg__delete_button {
+    color: #3C3C3E;
+    background: rgb(215, 85, 80, .3)
+}
+
+.contactMsg__delete_button:hover {
+    background-color: #D75550;
+    color: white;
+    cursor: pointer;
+    border-color: #D75550;
+}
+
+.contactMsg__read_button {
+    color: #3C3C3E;
+    background-color: rgb(46, 163, 153, .3);
+}
+
+.contactMsg__read_button:hover {
+    background-color: rgb(46, 163, 153);
+    color: white;
+    border-color: #3C3C3E;
+    cursor: pointer;
+}
+
+.contactMsg__reply_button {
+    color: #3C3C3E;
+    background-color: rgb(46, 163, 153, .3);
+}
+
+.contactMsg__reply_button:hover {
+    display: none;
+    background-color: #2EA399;
+    color: white;
+    border-color: #2EA399;
+    cursor: pointer;
+}
+
+/* .contactMsg__alert {
+    position: absolute;
+    right: -10px;
+    top: -30px;
+    height: 20px;
+    width: 20px;
+    padding: 5px;
+    border-radius: 20px;
+    text-align: center;
+    background: #D75550;
+    color: white;
+} */
+
+@media (max-width: 500px) {
+    .contactMsg__message_container {
+        width: 100%;
+    }
+}
