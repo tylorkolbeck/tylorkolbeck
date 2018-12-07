@@ -2,15 +2,21 @@
   position: relative;
   font-family: 'Montserrat', sans-serif;
   color: #555;
-  width: 100%;
+  width: 80%;
+  max-width: 1200px;
   margin: auto;
+
 }
 
 .FullPost h1 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 3.5rem;
-  font-weight: 100;
+  font-weight: 200;
+}
+
+.FullPost h2 {
+  font-weight: 400;
 }
 
 .fullpost__title {
@@ -63,6 +69,14 @@
   font-weight: 400;
 }
 
+.fullpost__bodyText_container {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  letter-spacing: .03rem;
+  font-weight: 400;
+}
+
 .FullPost .tags {
   font-weight: 400;
 }
@@ -73,6 +87,10 @@
 
 /* MOBILE */
 @media (max-width: 600px) {
+
+  .FullPost {
+    width: 100%;
+  }
   .fullpost__description {
     width: 100%;
   }

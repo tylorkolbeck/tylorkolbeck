@@ -76,7 +76,7 @@ class FullPost extends Component {
           
           <p className="fullpost__description">{syncData.description}</p>
 
-          <p> Body - {ReactHtmlParser(syncData.bodyText)}</p>
+          <div className="fullpost__bodyText_container">{ReactHtmlParser(syncData.bodyText)}</div>
         </div>
       )
     }
