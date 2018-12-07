@@ -13,6 +13,7 @@ import AllPosts from './containers/AllPosts/AllPosts'
 import history from './history'
 import EditPost from './containers/EditPost/EditPost'
 import ContactMsgs from './containers/ContactMsgs/ContactMsgs'
+import ControlPanel from './components/ControlPanel/ControlPanel'
 
 
 
@@ -79,6 +80,8 @@ class App extends Component {
     history.listen((location, action) => {
       // console.log(`Current URL is ${location.pathname}`)
     })
+
+    let controlPanel = this.state.userId === process.env.REACT_APP_ADMIN_USERID ? <ControlPanel /> : null
     
 
     let backdrop
@@ -88,6 +91,8 @@ class App extends Component {
 
     return (
         <div className="App">
+        {controlPanel}
+          
           <Toolbar isLoggedIn={this.loginOrLogout()} userCheck={this.state.userId} drawerClickedHander={this.drawerToggleClickHandler}/>
 
           <TopDrawer 
@@ -97,6 +102,7 @@ class App extends Component {
 
           {backdrop}
           <main>
+         
           
               <Switch> 
                 <Route path="/" exact component={Home} />
@@ -109,13 +115,9 @@ class App extends Component {
                 <Route path="/edit-post/:postId" exact component={EditPost} />
                 <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/>
                 <Route path="/contactMsgs" exact render={() => <ContactMsgs userId={this.state.userId}/>}/>
-
-
-                
-
                 <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
               </Switch>
-            
+              
           </main>
         </div>
     );

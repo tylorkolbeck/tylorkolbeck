@@ -1,0 +1,46 @@
+.slideout {
+    position: fixed;
+    top: 200px;
+    right: 0px;
+    height: 50px;
+    width: 15px;
+    padding: 5px;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    background: #ccc;
+    border-radius: 10px 0px 0px 10px;
+    z-index: 99;
+}
+
+.slideout_inner {
+    background: #ccc;
+    position: fixed;
+    top: 200px;
+    height: 50px;
+    width: 250px;
+    right: -250px;
+    padding: 5px;
+    border-radius: 10px 0px 0px 10px;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    z-index: 99;
+}
+
+.slideout_inner div {
+    padding-left: 10px;
+    z-index: 99;
+}
+
+.slideout:hover {
+    right: 200px;
+    z-index: 99;
+}
+
+.slideout:hover .slideout_inner {
+    right: 0;
+    z-index: 99;
+}

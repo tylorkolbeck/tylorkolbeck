@@ -24,14 +24,19 @@
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
+  background-color: #DA1C5C;
+  margin-top: 0px;  
+
 }
 
 .top-drawer li {
   margin: 0.5rem 0;
-  padding: 10px 0px;
-  background-color: #DA1C5C;
+  padding: 10px 20px;
+  /* background-color: #DA1C5C; */
   border-radius: 0 10px 10px 0;
-  text-align: center;
+  transition: 2s;
+  -moz-transition:2s;
+
 }
 
 .top-drawer a {
@@ -39,12 +44,12 @@
   font-weight: 400;
   color: white;
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 2.3rem;
 }
 
 .top-drawer a:hover, 
 .top-drawer a:active {
-  color: #DA1C5C;
+  padding-left: 20px;
 }
 
 @media (min-width: 769px) {
