@@ -3,11 +3,12 @@ import './ControlPanel.css'
 
 const ControlPanel = props => {
     return (
-        <div className="slideout">
-            <div className="slideout_inner">
+        <div className="ControlPanel__slideout">
+            <div className="ControlPanel__slideout_inner">
                 <div>
-                    <a href="/new-post">New</a>
-                    <a href="/contactMsgs">Messages</a>
+                    <a href="/new-post">New |</a>
+                    <a href="/contactMsgs">Messages | </a>
+                    <a href="/contactMsgs">Admin </a>
                 </div>
             </div>
         </div>

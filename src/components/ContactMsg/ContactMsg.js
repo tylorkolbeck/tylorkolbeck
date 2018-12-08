@@ -49,7 +49,7 @@ const ContactMsg = props => (
             <span className="msg_text">{props.body}</span>
         </p>
 
-        <span className="contactMsg__action_button contactMsg__read_button" onClick={(e) => props.toggleMessageRead(e, props.id)}>toggle read</span>
+        <span className="contactMsg__action_button contactMsg__read_button" onClick={(e) => props.toggleMessageRead(e, props.id)}>read</span>
         {/* <span className="contactMsg__action_button contactMsg__read_button" onClick={() => props.isRead = false}>toggle read</span> */}
         <span className="contactMsg__action_button contactMsg__reply_button" >reply</span>
         <span onClick={(e) => props.deleteMessage(e, props.id)}className="contactMsg__action_button contactMsg__delete_button">delete</span>

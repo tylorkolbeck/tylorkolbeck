@@ -9,7 +9,11 @@
     margin: auto;
     margin-bottom: 20px;
     margin-top: 20px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset; 
+    box-shadow: 
+        0 1px 4px rgba(0,0,0,.5), 
+        0 1px 1px rgba(0,0,0,.4), 
+        0 0 0px rgba(0,0,0,.7) inset, 
+        0 10px 0px rgba(255,255,255,.11) inset; 
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
 }
@@ -36,7 +40,11 @@
     color: white;
     /* background: rgb(215, 85, 80, .3) */
     background: -webkit-linear-gradient(top, #FF6969 0%,#ff0000 100%);
-    box-shadow: 0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset; 
+    box-shadow: 
+    0 0px 0px rgba(0,0,0,.5),
+    0 0px 0px rgba(0,0,0,.5),
+    0 0 1px rgba(0,0,0,.7) inset,
+    0 10px 0px rgba(255,255,255,.11) inset; 
 }
 
 .contactMsg__delete_button:hover {
@@ -48,7 +56,11 @@
 .contactMsg__read_button {
     color: white;
     background: -webkit-linear-gradient(top, #6ea3f7 0%,#4286f4 100%); 
-    box-shadow: 0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset; 
+    box-shadow: 
+    0 0px 0px rgba(0,0,0,.5),
+    0 0px 0px rgba(0,0,0,.5),
+    0 0 1px rgba(0,0,0,.7) inset,
+    0 10px 0px rgba(255,255,255,.11) inset; 
 }
 
 .contactMsg__read_button:hover {
@@ -59,7 +71,11 @@
 
 .contactMsg__reply_button {
     background: -webkit-linear-gradient(top, #6ea3f7 0%,#4286f4 100%); 
-    box-shadow: 0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset; 
+    box-shadow: 
+        0 0px 0px rgba(0,0,0,.5),
+        0 0px 0px rgba(0,0,0,.5),
+        0 0 1px rgba(0,0,0,.7) inset,
+        0 10px 0px rgba(255,255,255,.11) inset; 
     color: white;
 }
 
