@@ -18,12 +18,6 @@ class NewPost extends Component  {
     isPublic: false
   }
 
-  // tagsFormatter(tags) {
-  //   let tagsArray = []
-  //   tagsArray.push(tags.toLowerCase(tags.split(',')))
-  //   this.setState({tags: tagsArray})    
-  // }
-
   updateStateHandler(event) {
     let fieldName = event.target.name
     let fieldValue = event.target.value

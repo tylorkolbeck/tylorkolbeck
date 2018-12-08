@@ -14,6 +14,7 @@ import history from './history'
 import EditPost from './containers/EditPost/EditPost'
 import ContactMsgs from './containers/ContactMsgs/ContactMsgs'
 import ControlPanel from './components/ControlPanel/ControlPanel'
+import ContactForm from './containers/ContactForm/ContactForm'
 
 
 
@@ -115,6 +116,7 @@ class App extends Component {
                 <Route path="/edit-post/:postId" exact component={EditPost} />
                 <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/>
                 <Route path="/contactMsgs" exact render={() => <ContactMsgs userId={this.state.userId}/>}/>
+                <Route path="/contact" exact render={() => <ContactForm userId={this.state.userId}/>}/>
                 <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
               </Switch>
               

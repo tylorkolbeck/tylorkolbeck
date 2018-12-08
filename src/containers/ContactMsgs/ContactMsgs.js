@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import './ContactMsgs.css'
 
+
 import ContactMsg from '../../components/ContactMsg/ContactMsg'
 
 
@@ -94,7 +95,6 @@ class ContactMsgs extends Component {
 
 
     render() {
-
         let msgAlert = {
             position: 'absolute',
             top: '-10px',
@@ -130,6 +130,7 @@ class ContactMsgs extends Component {
                     <ContactMsg 
                     key={msg._id} 
                     id={msg._id}
+                    date={msg.dateSent}
                     name={msg.name}
                     email={msg.email}
                     subject={msg.subject}

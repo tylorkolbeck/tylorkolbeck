@@ -1,5 +1,6 @@
 import React from 'react'
 import './ContactMsg.css'
+import { dateConversion } from '../../MyModules/date_converter'
 
 
 let msgAlert = {
@@ -30,8 +31,9 @@ const ContactMsg = props => (
     <div className="contactMsg__message_container">
     <p style={props.isRead ?  noMsgAlert : msgAlert}>1</p>
         <p>
-            <span className="msg_label">From:</span>  
+            <span className="msg_label">From:</span>
             <span className="msg_text">{props.name}</span>
+            <span className="msg_label">On: </span>{dateConversion(props.date)}
         </p>
 
         <p>
