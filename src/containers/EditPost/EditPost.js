@@ -3,6 +3,7 @@ import './EditPost.css'
 import history from '../../history'
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser'
+import btns from '../../MyModules/PostFormatter/postFormatter'
 
 class EditPost extends Component  {
   state = {
@@ -17,16 +18,8 @@ class EditPost extends Component  {
     bodyText: '',
     postImages: [],
     isPublic: false,
+    cursorLocation: 0
   }
-
-  componentDidUpdate() {
-    console.log(this.state.tags)
-  }
-
-  componentWillMount() {
-
-  }
-   
   
   componentDidMount() {
     if (this.props.match.params.postId) {
@@ -36,9 +29,7 @@ class EditPost extends Component  {
           let newData = {
             ...res.data.doc
           }
-          console.log(res.data.doc)
           this.setState({...newData, loadedPost: true})
-          console.log(this.state._id)
         })
         .catch(err => {
           console.log(err)
@@ -55,7 +46,6 @@ class EditPost extends Component  {
     } 
   }
 
-
   // tagsFormatter(tags) {
     
   //   tagsArray.push(tags.toLowerCase(tags.split(',')))
@@ -63,6 +53,13 @@ class EditPost extends Component  {
   // }
 
   updateStateHandler(event) {
+
+    btns.getCursorLocation(event)
+
+    if (event.target.name === 'bodyText') {
+      this.setState({cursorLocation: event.target.selectionEnd})
+    }
+
     if (event.target.name === 'tags') {
       let tagsArray = []
       if (Array.isArray(event.target.value )) {
@@ -83,7 +80,6 @@ class EditPost extends Component  {
     let fieldValue = event.target.value
     this.setState({[fieldName]: fieldValue})
     // localStorage.setItem(fieldName, fieldValue)
-    console.log(this.state)
   }
 
   postDataHandler = () => {
@@ -155,8 +151,48 @@ class EditPost extends Component  {
           <label>Description</label>
           <textarea name="description" value={this.state.description} onChange={event => this.updateStateHandler(event)} />
 
-          <label>Body</label>
-          <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea>
+          {/* <label>Body</label>
+          <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea> */}
+
+
+          {/* {##############################} */}
+
+          <div className="NewPost__textArea_formatter">
+            <div className="NewPost__textarea_buttons">
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)}><b className="bold">Bold </b></span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)}><i className="italic">italic</i></span>
+              <span className="unl" onClick={(e)=> btns.insertTag(e, this._txtArea)}>Underline</span>
+
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="p">p</span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="tab">tab</span>
+
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h1">h1</span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h2">h2</span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h3">h3</span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h4">h4</span>
+              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="pre">&lt; &gt;</span>
+
+              <span>{this.state.cursorLocation}</span>
+
+            </div>
+            
+            <textarea 
+              style={{height: '800px'}} 
+              name="bodyText" 
+              value={this.state.bodyText} 
+              // onKeyDown={(e) => btns.tabHandler(e)}
+              onChange={(e) => this.updateStateHandler(e)}
+              onFocus={(e) => this.updateStateHandler(e)}
+              ref={(txtArea) => {this._txtArea = txtArea }}
+              >
+            </textarea>
+
+          </div>
+
+          {/* {##############################} */}
+
+
+
 
           <div className="newpost__live_preview_container">
               {ReactHtmlParser(this.state.bodyText)}

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import Sync from './Sync/Sync'
 import axios from '../../axios';
 import Post from '../Post/Post'
+import { dateConversion } from '../../MyModules/my_module'
 
 class AllPosts extends Component {
   
@@ -62,19 +63,7 @@ class AllPosts extends Component {
     // console.log(e.target.textContent)
     this.props.history.replace({pathname: e.target.textContent})
   }
-
-  dateConversion = (ISODate) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const dateArray = []
-    const date = new Date(ISODate);
-    dateArray.push(date.getFullYear())
-    dateArray.push(months[date.getMonth()])
-    dateArray.push(date.getDate())
-
-    //  + '-' + (date.getMonth()+1) + '-' + date.getDate();
-    return dateArray
-  }
-
+  
   handleData(data) {
     this.setState({
       fromChild: data
@@ -96,7 +85,7 @@ class AllPosts extends Component {
           title={post.title}
           author={post.author}
           description={post.description}
-          date = {this.dateConversion(date)}
+          date = {dateConversion(date, 'y,m,d')}
           tags={post.tags}
           clicked={()=> this.postSelectedHandler(post._id)}
           location={this.state.location}

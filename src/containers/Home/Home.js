@@ -22,6 +22,9 @@ class Home extends Component {
             <i class="material-icons">watch_later</i>
             <i class="material-icons">assignment</i>
             <i class="material-icons">description</i>
+            <i class="material-icons">feedback</i>
+            <i class="material-icons">lock</i>
+            <i class="material-icons">list</i>
       
       </div>
 

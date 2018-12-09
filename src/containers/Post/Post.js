@@ -4,6 +4,8 @@ import './Post.css'
 import { deletePostHandler } from './deletePost'
 import history from '../../history'
 
+
+
 class post extends Component {
   state = {
     isDeleted: false
@@ -22,7 +24,7 @@ class post extends Component {
       userId: this.props.userId,
       postId: this.props.id
     }
-    let userId = this.props.userId
+
     let adminButtons = null
     let isAdmin = this.props.userId ? true : false
     if (isAdmin && this.props.adminMode) {

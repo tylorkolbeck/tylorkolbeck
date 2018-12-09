@@ -1,6 +1,6 @@
 import React from 'react'
 import './ContactMsg.css'
-import { dateConversion } from '../../MyModules/date_converter'
+import { dateConversion } from '../../MyModules/my_module'
 
 
 let msgAlert = {
@@ -15,7 +15,6 @@ let msgAlert = {
     textAlign: 'center',
     fontFamily: '\'Montserrat\', sans-serif',
     color: 'white',
-    // border: '2px solid white',
     background: '-webkit-linear-gradient(top, #FF6969 0%,#ff0000 100%)',
     boxShadow: '0 1px 2px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4), 0 0 1px rgba(0,0,0,.7) inset, 0 10px 0px rgba(255,255,255,.11) inset', 
     WebkitBackgroundClip: 'padding-box'
@@ -33,7 +32,7 @@ const ContactMsg = props => (
         <p>
             <span className="msg_label">From:</span>
             <span className="msg_text">{props.name}</span>
-            <span className="msg_label">On: </span>{dateConversion(props.date)}
+            <span className="msg_label">On: </span>{dateConversion(props.date, 'd,m,y')}
         </p>
 
         <p>

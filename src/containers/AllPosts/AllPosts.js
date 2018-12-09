@@ -6,6 +6,7 @@ import Post from '../Post/Post'
 // import { Z_BLOCK } from 'zlib';
 // import { runInThisContext } from 'vm';
 import history from '../../history'
+import { dateConversion } from '../../MyModules/my_module'
 
 class AllPosts extends Component {
   _ismounted = false;
@@ -148,18 +149,6 @@ class AllPosts extends Component {
   } 
  }
 
-  dateConversion = (ISODate) => {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    const dateArray = []
-    const date = new Date(ISODate);
-    dateArray.push(date.getFullYear())
-    dateArray.push(months[date.getMonth()])
-    dateArray.push(date.getDate())
-
-    //  + '-' + (date.getMonth()+1) + '-' + date.getDate();
-    return dateArray
-  }
-
   removeFilterHandler(event) {
     let oldTagsArray = [...this.state.filter]
     let pos = oldTagsArray.indexOf(event.target.textContent)
@@ -242,7 +231,7 @@ class AllPosts extends Component {
           title={post.title}
           author={post.author}
           description={post.description}
-          date = {this.dateConversion(date)}
+          date = {dateConversion(date, 'y,m,d')}
           tags={post.tags}
           clicked={(event)=> this.postSelectedHandler(event, post._id)}
           location={this.state.location}

@@ -3,6 +3,8 @@ import './NewPost.css'
 import history from '../../history'
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser'
+import { tabHandler } from '../../MyModules/my_module'
+import btns from '../../MyModules/PostFormatter/postFormatter'
 
 class NewPost extends Component  {
   state = {
@@ -15,15 +17,25 @@ class NewPost extends Component  {
     tags: localStorage.getItem('tags') ? localStorage.getItem('tags') : '',
     category: localStorage.getItem('category') ? localStorage.getItem('category') : '',
     postImages: [],
-    isPublic: false
+    isPublic: false,
+    cursorLocation: 0
   }
 
   updateStateHandler(event) {
+    this.setState({cursorLocation: event.target.selectionEnd})
+    btns.getCursorLocation(event)
+
+    if (event.target.name === 'bodyText') {
+      this.setState({cursorLocation: event.target.selectionEnd})
+    }
+
     let fieldName = event.target.name
     let fieldValue = event.target.value
     this.setState({[fieldName]: fieldValue})
     localStorage.setItem(fieldName, fieldValue)
+    
   }
+
 
   postDataHandler = () => {
     const data ={
@@ -76,7 +88,6 @@ class NewPost extends Component  {
       showNewPostForm = 
       <div className='NewPost'>
         <div className="newpost_form_container">
-        
           <label style={{marginTop: '30px'}}>Title</label>
           <input type='text' name="title" value={this.state.title} onChange={event => this.updateStateHandler(event)} />
         
@@ -93,13 +104,40 @@ class NewPost extends Component  {
           <label>Description</label>
           <textarea name="description" value={this.state.description} onChange={event => this.updateStateHandler(event)} />
 
-          <label>Body</label>
-          <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea>
+          <div className="NewPost__textArea_formatter">
+            <div className="NewPost__textarea_buttons">
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><b className="bold">Bold </b></span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><i className="italic">italic</i></span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="unl" >Underline</span>
 
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="p">p</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="tab">tab</span>
+
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="h1">h1</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="h2">h2</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="h3">h3</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="h4">h4</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="pre">&lt; &gt;</span>
+
+              <span>{this.state.cursorLocation}</span>
+
+            </div>
+            
+            <textarea 
+              style={{height: '800px'}} 
+              name="bodyText" 
+              value={this.state.bodyText}
+              onKeyDown={(e) => btns.tabHandler(e)} 
+              onChange={(e) => this.updateStateHandler(e)}
+              onFocus={(e) => this.updateStateHandler(e)}
+              ref={(txtArea) => {this._editTxtArea = txtArea }}
+              >
+            </textarea>
+
+          </div>
+          
           <div className="newpost__live_preview_container">
-
               {ReactHtmlParser(this.state.bodyText)}
-         
           </div>
 
           
@@ -111,7 +149,7 @@ class NewPost extends Component  {
       <div>
         Is Public?
         <label className="newpost__ispublic_container">
-            <input type="checkbox" onChange={(event) => this.setState({isPublic: event.target.checked})}></input>
+            <input type="checkbox"  onChange={(event) => this.setState({isPublic: event.target.checked})}></input>
             <span className="newpost__ispublic_checkmark"></span>
           </label>
       </div>
