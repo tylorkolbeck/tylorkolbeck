@@ -152,55 +152,7 @@
   transform: rotate(45deg);
 }
 
-/* STYLING FOR THE NEW POST TEXT AREA CONTROL BUTTONS */
-.NewPost__textarea_buttons .unl {
-  text-decoration: underline;
-}
 
-.NewPost__textarea_buttons span {
-  border-left: 1px solid grey;
-  border-top: 1px solid grey;
-  border-bottom: 1px solid grey;
-  padding: 5px;
-}
-
-.NewPost__textarea_buttons span:last-of-type {
-  border-right: 1px solid grey;
-}
-
-.NewPost__textarea_buttons span:hover {
-  cursor: pointer;
-  background: rgb(136, 234, 252);
-}
-
-.NewPost__textarea_buttons .btn_h1 {
-  font-weight: 900;
-}
-
-.NewPost__textarea_buttons .btn_h2 {
-  font-weight: 600;
-}
-
-.NewPost__textarea_buttons .btn_h3 {
-  font-weight: 300;
-}
-
-.NewPost__textarea_buttons .btn_h4 {
-  font-weight: 100;
-}
-
-U {
-  text-decoration: underline;
-}
-
-pre {
-  overflow: auto;
-  border: 1px solid #ccc;
-  padding: 10px;
-  background: rgb(238, 238, 238);
-  border-radius: 3px;
-  margin: auto;
-}
 
 @media (max-width: 768px) {
   .newpost_form_container {

@@ -180,7 +180,7 @@ class EditPost extends Component  {
               style={{height: '800px'}} 
               name="bodyText" 
               value={this.state.bodyText} 
-              // onKeyDown={(e) => btns.tabHandler(e)}
+              onKeyDown={(e) => btns.tabHandler(e)}
               onChange={(e) => this.updateStateHandler(e)}
               onFocus={(e) => this.updateStateHandler(e)}
               ref={(txtArea) => {this._txtArea = txtArea }}

@@ -40,15 +40,7 @@ const btns = {
 
     tabHandler(e, txtArea) {
         if (e.keyCode === 9) {
-          e.preventDefault()
-
-        //   let boxV = e.target.value
-        //   let start = e.target.selectionStart
-        //   console.log(start)
-        //   let end = e.target.selectionEnd
-        //   e.target.value = boxV.substring(0, start) + "\t" + boxV.substring(end) + "&ensp;" 
-        // //   start = end = start+1
-        
+          e.preventDefault()    
           }
       },
 
