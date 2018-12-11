@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import './Post.css'
 import { deletePostHandler } from './deletePost'
 import history from '../../history'
@@ -12,7 +12,7 @@ class post extends Component {
   }
 
   componentDidMount(){ 
-
+    console.log("[POST]", this.props.id)
   }
 
   setDeletedStateHandler() {
@@ -49,7 +49,7 @@ class post extends Component {
         arrayCounter++
       })
       return tagArray
-    } else {
+    } else if (typeof arr === 'string'){
       let arrayCounter = 0
       let newTagArr = arr.split(',')
       newTagArr.forEach(tag => {

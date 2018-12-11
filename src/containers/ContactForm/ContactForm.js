@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import './ContactForm.css'
-import history from '../../history'
+// import history from '../../history'
 import FormErrors from '../../components/FormError/FormErrors'
 
 

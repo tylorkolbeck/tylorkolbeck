@@ -2,108 +2,126 @@ import React, { Component } from 'react'
 import './EditPost.css'
 import history from '../../history'
 import axios from 'axios';
-import ReactHtmlParser from 'react-html-parser'
-import btns from '../../MyModules/PostFormatter/postFormatter'
+// import ReactHtmlParser from 'react-html-parser'
+// import btns from '../../MyModules/PostFormatter/postFormatter'
+import PostForm from '../../components/PostForm/PostForm'
+
+ // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
+//  TODO: FIX EDGE CASE WHERE I LOG IN AND THERE IS NO WHERE TO GO BACK TO. THEN JUST GO TO HOME PAGE
 
 class EditPost extends Component  {
   state = {
+    localStoragePrefix: false,
     submitted: false,
-    userId: this.props.location.state ? this.props.location.state.userId : 'dasf234234',
+    userId: localStorage.getItem('userId'),
+    postId: this.props.match.params.postId ? this.props.match.params.postId : '',
     loadedPost: false,
+    _id: '',
     title: '',
     author: '',
-    tags: [],
+    tags:  localStorage.getItem('tags') ? [...localStorage.getItem('tags')] : [],
     category: '',
     description: '',
     bodyText: '',
     postImages: [],
-    isPublic: false,
-    cursorLocation: 0
+    isPublic: false
   }
-  
+
+
   componentDidMount() {
-    if (this.props.match.params.postId) {
-      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId))
-      axios.get('/posts/' + this.props.match.params.postId) 
-        .then(res => {
-          let newData = {
-            ...res.data.doc
-          }
-          this.setState({...newData, loadedPost: true})
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    if (this.state.postId) {
+      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
+        this.getPostToEdit()
+      } else {
+        console.log("MAKING A NEW POST?")
       }
+    }
+
+    console.log(this.state.tags)
   }
 
-  tagMaker(tags) {
-    if (Array.isArray.tags) {
-      let tagString = tags.toString()
-      this.setState({tags: tagString})
-      return tagString.split(',')
-      
-    } 
-  }
-
-  // tagsFormatter(tags) {
-    
-  //   tagsArray.push(tags.toLowerCase(tags.split(',')))
-  //   this.setState({tags: tagsArray})    
-  // }
-
+  
   updateStateHandler(event) {
-
-    btns.getCursorLocation(event)
-
-    if (event.target.name === 'bodyText') {
-      this.setState({cursorLocation: event.target.selectionEnd})
-    }
-
-    if (event.target.name === 'tags') {
-      let tagsArray = []
-      if (Array.isArray(event.target.value )) {
-        tagsArray.push(event.target.value)
-        this.setState({tags: this.state.tags.push(event.target.value)})
-        return console.log(this.state)
-      } else if (typeof event.target.value === 'string') {
-        tagsArray = event.target.value.split(',')
-         this.setState({tags: [...tagsArray]})
-         return console.log(this.state)
-      }
-      return
-    }
-
-
+    let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
 
     let fieldName = event.target.name
-    let fieldValue = event.target.value
+    // let fieldValue = event.target.value
     this.setState({[fieldName]: fieldValue})
-    // localStorage.setItem(fieldName, fieldValue)
+
+
+    localStorage.setItem(`${this.state.localStoragePrefix}-${fieldName}`, fieldValue)
   }
 
+
+  getPostToEdit() {
+    let localStoragePrefix = 'editPost-'
+
+    axios.get('/posts/' + this.props.match.params.postId) 
+      
+    .then(res => {
+        let postItems = {
+          title: '',
+          author: '',
+          tags: [],
+          category: '',
+          description: '',
+          bodyText:'',
+          isPublic: '',
+          _id: ''
+        }
+
+        for (let key in postItems) {
+          // if (key === 'tags') {
+            
+          //   res.data.doc.tags.forEach((tag) => postItems.tags.push(tag))
+          //   // postItems[key].push(res.data.doc[key])
+            
+          // } else 
+          
+          // if (key !== 'tags') {
+            // console.log("TEST LOCAL STORAGE: ", `${localStoragePrefix}${this.state.postId}-${key}`)
+        
+          postItems[key] = localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`) ? localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`) : res.data.doc[key]
+          
+          // postItems[key] === 'tags' ? localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`.split(',')) :  ()
+          
+          // } 
+        }
+  
+        this.setState({...postItems, localStoragePrefix: localStoragePrefix+this.state.postId, loadedPost: true, userId: localStorage.getItem('userId')})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+
+  togglePublic = () => {
+    this.setState({isPublic: !this.state.isPublic})
+    console.log(this.state.isPublic)
+  }
+
+
+  // When form is submitted then set the data and patch request to the DB.
   postDataHandler = () => {
     const data = {
       title: this.state.title,
       author: this.state.author,
       bodyText: this.state.bodyText,
       description: this.state.description,
-      tags: this.state.tags,
+      tags: Array.isArray(this.state.tags) ? this.state.tags : this.state.tags.split(','),
       category: this.state.category,
       postImages: [],
-      isPublic: this.state.isPublic
+      isPublic: this.state.isPublic,
     }
-
 
     let dataArray = []
 
     for (let key in data) {
       dataArray.push({
         propName: key, value: data[key]
-      })
+      }) 
     }
-
-    
 
     axios({
       method: 'patch',
@@ -118,7 +136,11 @@ class EditPost extends Component  {
       .then(res => {
         console.log(res.err)
         
+
         this.setState({submitted: true}) 
+        for (let key in data) {
+          localStorage.removeItem(`${this.state.localStoragePrefix}-${key}`)
+        }
       })
       .then(() =>  history.push('/all-posts'))
       .catch(err => {
@@ -127,96 +149,27 @@ class EditPost extends Component  {
   }
   
   render () {
-    let showNewPostForm = null
-
-    if (this.props.location.state.userId) {
-      showNewPostForm = 
-      <div className='NewPost'>
-        <div className="newpost_form_container">
-        
-          <label style={{marginTop: '30px'}}>Title</label>
-      
-          <input type='text' name="title" value={this.state.title} onChange={event => this.updateStateHandler(event)} />
-        
-          <label style={{marginTop: '30px'}}>Author</label>
-          <input type='text' name='author' value={this.state.author} onChange={event => this.updateStateHandler(event)} />
-      
-          <label>Tags</label>
-          <input type='text' name="tags" value={this.state.tags} onChange={event => this.updateStateHandler(event)} />
-        
-          <label>Category</label>
-          <input type='text' name="category" value={this.state.category} onChange={event => this.updateStateHandler(event)} />
-        
-
-          <label>Description</label>
-          <textarea name="description" value={this.state.description} onChange={event => this.updateStateHandler(event)} />
-
-          {/* <label>Body</label>
-          <textarea style={{height: '800px'}} name="bodyText" value={this.state.bodyText} onChange={event => this.updateStateHandler(event)}></textarea> */}
-
-
-          {/* {##############################} */}
-
-          <div className="NewPost__textArea_formatter">
-            <div className="NewPost__textarea_buttons">
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)}><b className="bold">Bold </b></span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)}><i className="italic">italic</i></span>
-              <span className="unl" onClick={(e)=> btns.insertTag(e, this._txtArea)}>Underline</span>
-
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="p">p</span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="tab">tab</span>
-
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h1">h1</span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h2">h2</span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h3">h3</span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="h4">h4</span>
-              <span onClick={(e)=> btns.insertTag(e, this._txtArea)} className="pre">&lt; &gt;</span>
-
-              <span>{this.state.cursorLocation}</span>
-
-            </div>
-            
-            <textarea 
-              style={{height: '800px'}} 
-              name="bodyText" 
-              value={this.state.bodyText} 
-              onKeyDown={(e) => btns.tabHandler(e)}
-              onChange={(e) => this.updateStateHandler(e)}
-              onFocus={(e) => this.updateStateHandler(e)}
-              ref={(txtArea) => {this._txtArea = txtArea }}
-              >
-            </textarea>
-
-          </div>
-
-          {/* {##############################} */}
-
-
-
-
-          <div className="newpost__live_preview_container">
-              {ReactHtmlParser(this.state.bodyText)}
-          </div>
-
-          <label>Images</label>
-          <input type="file" readOnly/> 
-          <input type="file" readOnly/> 
-          <input type="file" readOnly/> 
-      
-        <div>
-          Is Public?
-          <label className="newpost__ispublic_container">
-              <input type="checkbox" name="isPublic" checked={this.state.isPublic} onChange={(event) => this.setState({isPublic: !this.state.isPublic})}></input>
-              <span className="newpost__ispublic_checkmark"></span>
-            </label>
-        </div>
-         
-          <button onClick={this.postDataHandler}>Update Post</button> 
-        </div>
-    </div>
+    let showNewPostForm
     
-    } else {
+    if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
+      console.log("Good user check")
+      showNewPostForm = 
+        <PostForm 
+          title={this.state.title}
+          author={this.state.author}
+          tags={this.state.tags}
+          category={this.state.category}
+          description={this.state.description}
+          bodyText={this.state.bodyText}
+          isPublic={this.state.isPublic}
+          togglePublic={this.togglePublic.bind(this)}
+          updateStateHandler={this.updateStateHandler.bind(this)}
+          postDataHandler={this.postDataHandler.bind(this)}
+        />
+    } else if (this.state.userId !== process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
+    } else {
+      showNewPostForm = <div>Error</div>
     }
 
     return (

@@ -3,18 +3,16 @@ import './NewPost.css'
 import history from '../../history'
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser'
-import { tabHandler } from '../../MyModules/my_module'
+// import { tabHandler } from '../../MyModules/my_module'
 import btns from '../../MyModules/PostFormatter/postFormatter'
 
 class NewPost extends Component  {
   state = {
-    submitted: false,
-    
     title: localStorage.getItem('title') ? localStorage.getItem('title') : '',
     author: localStorage.getItem('author') ? localStorage.getItem('author') : '',
     bodyText: localStorage.getItem('bodyText') ? localStorage.getItem('bodyText') : '',
     description: localStorage.getItem('description') ? localStorage.getItem('description') : '',
-    tags: localStorage.getItem('tags') ? localStorage.getItem('tags') : '',
+    tags: localStorage.getItem('tags') ? [...localStorage.getItem('tags')] : [],
     category: localStorage.getItem('category') ? localStorage.getItem('category') : '',
     postImages: [],
     isPublic: false,
@@ -22,24 +20,23 @@ class NewPost extends Component  {
   }
 
   updateStateHandler(event) {
-    this.setState({cursorLocation: event.target.selectionEnd})
     btns.getCursorLocation(event)
 
     if (event.target.name === 'bodyText') {
       this.setState({cursorLocation: event.target.selectionEnd})
     }
 
+    let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
+
     let fieldName = event.target.name
-    let fieldValue = event.target.value
+
     this.setState({[fieldName]: fieldValue})
     localStorage.setItem(fieldName, fieldValue)
-    
   }
 
 
   postDataHandler = () => {
-    const data ={
-      submitted: false,
+    const data = {
       title: this.state.title,
       author: this.state.author,
       bodyText: this.state.bodyText,
@@ -70,7 +67,7 @@ class NewPost extends Component  {
       .then(res => {
         const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
 
-        this.setState({submitted: true}) 
+        // remove from localStorage
         fieldNames.forEach((name) => {
           localStorage.removeItem(name)
         })
@@ -106,11 +103,11 @@ class NewPost extends Component  {
 
           <div className="NewPost__textArea_formatter">
             <div className="NewPost__textarea_buttons">
-              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><b className="bold">Bold </b></span>
-              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><i className="italic">italic</i></span>
-              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="unl" >Underline</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><b className="bold">B </b></span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)}><i className="italic">I</i></span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="unl" >U</span>
 
-              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="p">p</span>
+              <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="p">para</span>
               <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="tab">tab</span>
 
               <span onClick={(e)=> btns.insertTag(e, this._editTxtArea)} className="h1">h1</span>
@@ -146,15 +143,14 @@ class NewPost extends Component  {
           <input type="file" readOnly/> 
           <input type="file" readOnly/> 
       
-      <div>
-        Is Public?
-        <label className="newpost__ispublic_container">
-            <input type="checkbox"  onChange={(event) => this.setState({isPublic: event.target.checked})}></input>
-            <span className="newpost__ispublic_checkmark"></span>
-          </label>
-      </div>
+          <div>
+            Is Public?
+            <label className="newpost__ispublic_container">
+                <input type="checkbox"  onChange={(event) => this.setState({isPublic: event.target.checked})}></input>
+                <span className="newpost__ispublic_checkmark"></span>
+              </label>
+          </div>
          
-
           <button onClick={this.postDataHandler}>Add Post</button> 
         </div>
         

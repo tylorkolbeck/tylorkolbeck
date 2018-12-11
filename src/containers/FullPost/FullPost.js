@@ -45,24 +45,24 @@ class FullPost extends Component {
       let syncData = this.state.loadedPost.doc
       console.log("TEST" + syncData)
 
-      const getFilters = () => { 
-        const filterArray = []
-        if (syncData.tags.length > 0) {
+      // const getFilters = () => { 
+      //   const filterArray = []
+      //   if (syncData.tags.length > 0) {
       
-          syncData.tags.forEach((tag) => {
-            filterArray.push(
-                <span key={tag} className='fullpost__tag_block'> 
-                {tag + ' '}
-                </span>     
-              )
-          })
-        }
-         else if (syncData.tags.length === 0) {
-          return null
-        }
+      //     syncData.tags.forEach((tag) => {
+      //       filterArray.push(
+      //           <span key={tag} className='fullpost__tag_block'> 
+      //           {tag + ' '}
+      //           </span>     
+      //         )
+      //     })
+      //   }
+      //    else if (syncData.tags.length === 0) {
+      //     return null
+      //   }
         
-        return filterArray
-      }
+      //   return filterArray
+      // }
     
       sync = (
         <div className="FullPost">

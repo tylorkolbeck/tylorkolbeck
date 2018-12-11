@@ -18,6 +18,7 @@ const btns = {
     },
 
     setCursorLocation(e, txtArea, end) {
+        
         // txtArea.value = txtArea.value
         if (txtArea !== null) {
             if (txtArea.createTextRange) {
@@ -39,6 +40,8 @@ const btns = {
     },
 
     tabHandler(e, txtArea) {
+        console.log('test')
+        console.log(txtArea)
         if (e.keyCode === 9) {
           e.preventDefault()    
           }
