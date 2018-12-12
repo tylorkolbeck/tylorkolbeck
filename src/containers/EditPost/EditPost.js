@@ -11,84 +11,88 @@ import PostForm from '../../components/PostForm/PostForm'
 
 class EditPost extends Component  {
   state = {
-    localStoragePrefix: false,
+    // ['title','author','tags', 'category', 'description', 'bodyText', 'isPublic']
+    postItems: {
+      title: false,
+      author: false,
+      tags: false,
+      category: false,
+      description: false,
+      bodyText: false,
+      isPublic: false,
+      _id: false,
+      userId: false
+    },
+
+    localStoragePrefix: 'new-',
     submitted: false,
     userId: localStorage.getItem('userId'),
-    postId: this.props.match.params.postId ? this.props.match.params.postId : '',
+    postId: this.props.match.params.postId ? this.props.match.params.postId : 'new',
     loadedPost: false,
     _id: '',
     title: '',
     author: '',
-    tags:  localStorage.getItem('tags') ? [...localStorage.getItem('tags')] : [],
+    tags:  [],
     category: '',
     description: '',
     bodyText: '',
     postImages: [],
-    isPublic: false
+    isPublic: false,
   }
 
 
   componentDidMount() {
-    if (this.state.postId) {
+    // If there is a postId then assume that we are editing a post. 
+    if (this.state.postId && this.props.match.params.postId) {
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
         this.getPostToEdit()
-      } else {
-        console.log("MAKING A NEW POST?")
+        this.setState({localStoragePrefix: this.state.postId + '-'})
+        this.checkLocalStorage()
+        console.log('Not making a new post?')
       }
     }
-
-    console.log(this.state.tags)
+    // If there is not postId then assume that we are creating a new post. 
+    if (!this.props.match.params.postId) {
+      console.log("MAKING A NEW POST?")
+      this.checkLocalStorage()
+    }
   }
-
   
   updateStateHandler(event) {
-    let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
-
-    let fieldName = event.target.name
     // let fieldValue = event.target.value
+    console.log(this.state)
+    let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
+    let fieldName = event.target.name
     this.setState({[fieldName]: fieldValue})
+    localStorage.setItem(`${this.state.localStoragePrefix}${fieldName}`, fieldValue)
+  }
 
+  // Checks local storage for any unsaved progress.
+  checkLocalStorage() {
+    let storageDataObj = {...this.state.postItems}
+    for(let key in storageDataObj) {
+      if (key === 'tags' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+          storageDataObj[key] = true
+          this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(',')})
+      }
 
-    localStorage.setItem(`${this.state.localStoragePrefix}-${fieldName}`, fieldValue)
+      else if  (localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+        storageDataObj[key] = true
+        this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`), postItems: storageDataObj})
+      }
+    }
+    console.log(this.state)
   }
 
 
+  // Fetch the post to edit when a postId is in the URL(checked above)
   getPostToEdit() {
-    let localStoragePrefix = 'editPost-'
-
     axios.get('/posts/' + this.props.match.params.postId) 
-      
     .then(res => {
-        let postItems = {
-          title: '',
-          author: '',
-          tags: [],
-          category: '',
-          description: '',
-          bodyText:'',
-          isPublic: '',
-          _id: ''
+        for (let key in this.state.postItems) {
+          this.setState({[key]: res.data.doc[key]})
         }
-
-        for (let key in postItems) {
-          // if (key === 'tags') {
-            
-          //   res.data.doc.tags.forEach((tag) => postItems.tags.push(tag))
-          //   // postItems[key].push(res.data.doc[key])
-            
-          // } else 
-          
-          // if (key !== 'tags') {
-            // console.log("TEST LOCAL STORAGE: ", `${localStoragePrefix}${this.state.postId}-${key}`)
-        
-          postItems[key] = localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`) ? localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`) : res.data.doc[key]
-          
-          // postItems[key] === 'tags' ? localStorage.getItem(`${localStoragePrefix}${this.state.postId}-${key}`.split(',')) :  ()
-          
-          // } 
-        }
-  
-        this.setState({...postItems, localStoragePrefix: localStoragePrefix+this.state.postId, loadedPost: true, userId: localStorage.getItem('userId')})
+        this.checkLocalStorage()
       })
       .catch(err => {
         console.log(err)
@@ -109,50 +113,83 @@ class EditPost extends Component  {
       author: this.state.author,
       bodyText: this.state.bodyText,
       description: this.state.description,
-      tags: Array.isArray(this.state.tags) ? this.state.tags : this.state.tags.split(','),
+      tags: this.state.tags,
       category: this.state.category,
       postImages: [],
       isPublic: this.state.isPublic,
+      userId: this.state.userId
     }
 
-    let dataArray = []
-
-    for (let key in data) {
-      dataArray.push({
-        propName: key, value: data[key]
-      }) 
-    }
-
-    axios({
-      method: 'patch',
-      url: 'http://localhost:3000/posts/' + this.state._id,
-      data: dataArray, 
-   
-      headers: {
-        'Authorization': localStorage.getItem('Authorization'),
-        'Content-Type': 'application/json'
-      },
-    })
-      .then(res => {
-        console.log(res.err)
-        
-
-        this.setState({submitted: true}) 
-        for (let key in data) {
-          localStorage.removeItem(`${this.state.localStoragePrefix}-${key}`)
-        }
-      })
-      .then(() =>  history.push('/all-posts'))
-      .catch(err => {
-        console.log("[POST - ERROR] - ", err)
-      })
-  }
-  
-  render () {
-    let showNewPostForm
     
+
+    // If editing an array then run the patch.
+    if (this.state.postId === this.state._id) {
+      let dataArray = []
+      for (let key in data) {
+        dataArray.push({
+          propName: key, value: data[key]
+        }) 
+      }
+  
+      axios({
+        method: 'patch',
+        url: 'http://localhost:3000/posts/' + this.state._id,
+        data: dataArray, 
+     
+        headers: {
+          'Authorization': localStorage.getItem('Authorization'),
+          'Content-Type': 'application/json'
+        },
+      })
+        .then(res => {
+          console.log(res.err)
+          
+          this.setState({submitted: true}) 
+          for (let key in data) {
+            localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
+          }
+        })
+        .then(() =>  history.push('/all-posts'))
+        .catch(err => {
+          console.log("[POST - ERROR] - ", err)
+        })
+    } else { // Then this is a new post. 
+
+        const formData = new FormData()
+
+        for ( const key in this.state ) {
+          formData.append(key, data[key])
+        }
+
+        // The HTTP Request
+        axios({
+          method: 'post',
+          url: 'http://localhost:3000/posts',
+          data: formData, 
+      
+          headers: {
+            'Authorization': localStorage.getItem('Authorization'),
+            'Content-Type': 'multipart/form-data',
+            'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' 
+          },
+        })
+          .then(res => {
+            const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
+
+            // remove from localStorage
+            for (let key in data) {
+              localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
+            }
+          })
+          .then(() =>  history.push('/all-posts'))
+      }
+        
+  }
+
+  showPostForm = () => {
+    let showNewPostForm;
+
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
-      console.log("Good user check")
       showNewPostForm = 
         <PostForm 
           title={this.state.title}
@@ -171,10 +208,15 @@ class EditPost extends Component  {
     } else {
       showNewPostForm = <div>Error</div>
     }
-
+    return showNewPostForm
+  }
+  
+  render () {
+    
     return (
       <div>
-        {showNewPostForm}
+        {/* {showNewPostForm} */}
+        {this.showPostForm()}
       </div>
     )
   }

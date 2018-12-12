@@ -6,7 +6,7 @@ const ControlPanel = props => {
         <div className="ControlPanel__slideout">
             <div className="ControlPanel__slideout_inner">
                 <div>
-                    <a href="/new-post">New |</a>
+                    <a href="/edit-post">New |</a>
                     <a href="/contactMsgs">Messages | </a>
                     <a href="/contactMsgs">Admin </a>
                 </div>

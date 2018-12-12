@@ -32,6 +32,7 @@ class NewPost extends Component  {
 
     this.setState({[fieldName]: fieldValue})
     localStorage.setItem(fieldName, fieldValue)
+    // console.log("TAGS: " , this.state.tags)
   }
 
 

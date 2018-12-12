@@ -11,10 +11,6 @@ class post extends Component {
     isDeleted: false
   }
 
-  componentDidMount(){ 
-    console.log("[POST]", this.props.id)
-  }
-
   setDeletedStateHandler() {
     this.setState({isDeleted: true})
   }

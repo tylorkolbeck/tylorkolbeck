@@ -57,13 +57,10 @@ class App extends Component {
   }
 
   userIdSessionHandler = () => {
-    console.log('RUNNING LOGIN CHECK')
     if (this.state.userId !== false) {
-      console.log('REMOVING OLD USER ID')
       this.setState({userId: false})
     }
     if (localStorage.getItem('userId')) {
-      console.log('SHOULD BE USER ID SET')
       this.setState({userId: localStorage.getItem('userId')})
     }
   }
@@ -116,9 +113,8 @@ class App extends Component {
                 <Route path="/posts/:id" exact component={FullPost} />
                 <Route path="/users/login" exact render={() => <Login userID={this.state.userId} loginCheck={() => {this.userIdSessionHandler()}}/>} />
                 
+                <Route path='/edit-post' exact component={EditPost} />
                 <Route path="/edit-post/:postId" exact component={EditPost} />
-                {/* <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/> */}
-                {/* <Route path="/edit-post" exact render={() => <EditPost userId={this.state.userId}/>}/> */}
                 <Route path="/contactMsgs" exact render={() => <ContactMsgs userId={this.state.userId}/>}/>
                 <Route path="/contact" exact render={() => <ContactForm userId={this.state.userId}/>}/>
                 <Route render={() => <h1>Oops! <br></br>404 Error, Page Not Found.</h1>}/>
