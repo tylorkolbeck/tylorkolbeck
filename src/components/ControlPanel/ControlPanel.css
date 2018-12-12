@@ -2,7 +2,7 @@
     position: fixed;
     top: 200px;
     right: 0px;
-    height: 50px;
+    height: 30px;
     width: 15px;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
@@ -21,14 +21,13 @@
 .ControlPanel__slideout_inner a {
     color: #4286f4;
     text-decoration: none;
-    padding: 5px;
+    padding: 8px;
     font-family: 'Montserrat', sans-serif;
 }
 
 .ControlPanel__slideout_inner a:hover {
     color: #2674f2;
     text-decoration: none;
-    padding: 5px;
 }
 
 .ControlPanel__slideout_inner {
@@ -40,10 +39,10 @@
     background: #ccc;
     position: fixed;
     top: 200px;
-    height: 50px;
+    height: 30px;
     width: 250px;
     right: -250px;  
-    line-height: 50px;
+    line-height: 46px;
     border-radius: 10px 0px 0px 10px;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
