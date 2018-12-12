@@ -21,7 +21,7 @@ class EditPost extends Component  {
       bodyText: false,
       isPublic: false,
       _id: false,
-      userId: false
+      // userId: false
     },
 
     localStoragePrefix: 'new-',
@@ -76,12 +76,11 @@ class EditPost extends Component  {
           this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(',')})
       }
 
-      else if  (localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+      else if (localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
         storageDataObj[key] = true
         this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`), postItems: storageDataObj})
       }
     }
-    console.log(this.state)
   }
 
 
@@ -113,14 +112,12 @@ class EditPost extends Component  {
       author: this.state.author,
       bodyText: this.state.bodyText,
       description: this.state.description,
-      tags: this.state.tags,
+      tags: this.state.tags.map((tag) => tag.trim()),
       category: this.state.category,
       postImages: [],
       isPublic: this.state.isPublic,
       userId: this.state.userId
     }
-
-    
 
     // If editing an array then run the patch.
     if (this.state.postId === this.state._id) {
@@ -142,8 +139,6 @@ class EditPost extends Component  {
         },
       })
         .then(res => {
-          console.log(res.err)
-          
           this.setState({submitted: true}) 
           for (let key in data) {
             localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
@@ -154,9 +149,7 @@ class EditPost extends Component  {
           console.log("[POST - ERROR] - ", err)
         })
     } else { // Then this is a new post. 
-
         const formData = new FormData()
-
         for ( const key in this.state ) {
           formData.append(key, data[key])
         }
@@ -174,7 +167,7 @@ class EditPost extends Component  {
           },
         })
           .then(res => {
-            const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
+            // const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
 
             // remove from localStorage
             for (let key in data) {
@@ -187,6 +180,7 @@ class EditPost extends Component  {
   }
 
   showPostForm = () => {
+    console.log(this.state.userId)
     let showNewPostForm;
 
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {

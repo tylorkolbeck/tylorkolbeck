@@ -3,14 +3,15 @@ import './AllPosts.css'
 // import Sync from './Sync/Sync'
 import axios from '../../axios'
 import Post from '../Post/Post'
-// import { Z_BLOCK } from 'zlib';
-// import { runInThisContext } from 'vm';
 import history from '../../history'
 import { dateConversion } from '../../MyModules/my_module'
+
+
 
 class AllPosts extends Component {
   _ismounted = false;
   state = {
+    tagsArray: [],
     numOfPosts: 0,
     filter: [],
     posts: [],
@@ -39,9 +40,13 @@ class AllPosts extends Component {
           }
         })
 
+
+        let reversedPosts = updatedPosts.reverse()
+
+
         // Set state to the fetched posts object
         if (this._ismounted) {
-          this.setState({posts:updatedPosts})
+          this.setState({posts:reversedPosts})
         }
         
 
@@ -75,6 +80,14 @@ class AllPosts extends Component {
       arr.push(e.target.textContent.toLowerCase())
       this.setState({filter: arr})
     }
+  }
+
+  filterByDropDown = (e) => {
+    let arr = [...this.state.filter]
+    arr.push(e.target.value.toLowerCase())
+    this.setState({filter: arr})
+    // let filteredArr = arr.filter((tag) => tag !== e.target.value)
+    // console.log(filteredArr)
   }
 
  componentDidUpdate(prevProps, prevState) {
@@ -165,9 +178,11 @@ class AllPosts extends Component {
 
     const filterSpan = () => {
       if (this.state.filter.length > 0) {
-        return <span style={{fontFamily: '\'Montserrat\', sans-serif', fontWeight: '400', fontSize: '1rem'}}>Filtering By: </span>
+        return <span style={{fontFamily: '\'Montserrat\', sans-serif', fontWeight: '400', fontSize: '1rem', marginLeft: '10px'}}>Contains: </span>
       }
     }
+
+
 
     const getFilters = () => { 
       const filterArray = []
@@ -194,7 +209,7 @@ class AllPosts extends Component {
       }
       if (this.props.userId) {
         return (
-          <div>
+          <div style={{display: 'inline', float: 'left', marginRight: '10px'}}>
             <label className="allposts__edit_slider_label">Edit Mode </label>
             <label className="allposts__edit_switch">
               <input type="checkbox" onChange={(event) => this.setState({adminMode: event.target.checked})}/>
@@ -243,9 +258,29 @@ class AllPosts extends Component {
       })
     }
 
+    // Make an array of all the tags.
+    this.state.posts.forEach((post) => {
+      post.tags.forEach((tag) => {
+        if (this.state.tagsArray.indexOf(tag.trim(' ')) === -1 && (tag.trim(' ') !== '' )) {
+          this.state.tagsArray.push(tag.trim(' '))
+        }
+      })
+    })
+
+
+  let tagDropDown = this.state.tagsArray.map((tag) => <option key={tag}>{tag}</option>)
+
     return (
       <div className='AllPostsContainer'>
-        {editSlider()}
+      {editSlider()}
+        <div style={{display: 'inline', float: 'left', marginLeft: '0px', marginBottom: '50px'}}>
+          {/* <span style={{fontFamily: '\'Montserrat\', sans-serif', fontWeight: '400', fontSize: '1rem'}}></span> */}
+          <select className="allPosts__tag_filter_dropdown" onChange={(e) => this.filterByDropDown(e)}style={{display: 'inline'}}>
+            <option>Filter</option>
+            {tagDropDown}
+          </select>
+        </div>
+        
         
         {filterSpan()}
         {getFilters()}

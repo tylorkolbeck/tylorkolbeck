@@ -77,6 +77,21 @@ input:checked + .slider:before {
   font-family: 'Montserrat', sans-serif;
 }
 
+.allPosts__tag_filter_dropdown {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  border: 0px;
+  border-radius: 0px;
+  outline: 1px;
+  background: #ccc;
+  color:#555;
+  /* box-shadow: 0 0 1px #ccc; */
+}
+
+.allPosts__tag_filter_dropdown option {
+  padding: 5px;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   .AllPostsContainer {

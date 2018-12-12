@@ -36,10 +36,26 @@
   .Sync h1:first-of-type {
     margin-top: -16px;
   }
+
+  .sync__main__info:first-of-type {
+    margin-top: 32px;
+  }
   
   .sync__main__info {
     padding: 16px;
-    margin-left: 8px;
+    margin-top: -3px;
+    /* margin-left: 8px; */
+  }
+
+  .sync__main__info h1 {
+    margin-bottom: 0px;
+    padding-top: 0px;
+  }
+
+  .sync__main__info h3 {
+    padding: 0px;
+    margin: 0px;
+    margin-top: 16px;
   }
 
   .Sync h1 {
@@ -59,6 +75,9 @@
     font-size: 1.2rem;
     line-height: 130%;
     letter-spacing: .03rem;
+    margin: 0px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
   
   .sync__main__info a,
@@ -77,9 +96,11 @@
   
   .sync__date__desktop {
     /* border: 1px solid grey; */
-    border-radius: 5px;
+    /* border-radius: 50%; */
     align-self: flex-start;
-    padding: 8px;
+    /* padding: 8px; */
+    border: 1px solid rgba(193, 64, 107, 1);
+    margin-top: 6px;
   }
   
   .sync__date__desktop p{
@@ -102,7 +123,7 @@
     text-align: center;
     font-size: 1.5rem;
     /* border: 1px solid grey; */
-    border-radius: 3px 3px 0 0;
+    /* border-radius: 3px 3px 0 0; */
     padding: 3px;
     background: rgba(193, 64, 107, 1);
     color: white;
