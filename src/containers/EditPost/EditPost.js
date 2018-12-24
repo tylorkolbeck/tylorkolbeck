@@ -130,7 +130,7 @@ class EditPost extends Component  {
   
       axios({
         method: 'patch',
-        url: 'http://localhost:3000/posts/' + this.state._id,
+        url: process.env.REACT_APP_ROOT_URL + 'posts/' + this.state._id,
         data: dataArray, 
      
         headers: {
@@ -157,7 +157,7 @@ class EditPost extends Component  {
         // The HTTP Request
         axios({
           method: 'post',
-          url: 'http://localhost:3000/posts',
+          url: process.env.REACT_APP_ROOT_URL + 'posts',
           data: formData, 
       
           headers: {

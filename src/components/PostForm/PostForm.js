@@ -20,7 +20,7 @@ const postForm = props => {
                 <input type='text' name="tags" value={props.tags} onChange={event => props.updateStateHandler(event)} />
                 
                 <label>Category</label>
-                <input type='text' name="category" value={props.category} onChange={event => props.updateStateHandler(event)} />
+                <input type='text' name="category" value={undefined} onChange={event => props.updateStateHandler(event)} />
                 
 
                 <label>Description</label>
