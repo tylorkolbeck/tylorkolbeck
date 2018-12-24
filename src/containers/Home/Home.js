@@ -16,7 +16,7 @@ class Home extends Component {
             <p>Absolutely! Just send me a message <a href="/contact">here</a> and I will get in touch to see how we can get started. </p>
       
             {/* <i class="material-icons" style="font-size:36px">note_add</i> */}
-            {/* <i className="material-icons">note_add</i>
+            <i className="material-icons">note_add</i>
             <i className="material-icons">question_answer</i>
             <i className="material-icons">supervisor_account</i>
             <i className="material-icons">watch_later</i>
@@ -24,7 +24,7 @@ class Home extends Component {
             <i className="material-icons">description</i>
             <i className="material-icons">feedback</i>
             <i className="material-icons">lock</i>
-            <i className="material-icons">list</i> */}
+            <i className="material-icons">list</i> 
       
       </div>
 
