@@ -34,7 +34,7 @@ class login extends Component {
     loginButtonHandler(state) {
         axios({
             method: 'post',
-            url: 'http://54.184.193.9:3000/user/login',
+            url: process.env.REACT_APP_ROOT_URL + 'user/login',
             data: {
                 email: this.state.email,
                 password: this.state.password
