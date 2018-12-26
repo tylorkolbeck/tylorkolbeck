@@ -194,6 +194,7 @@ class EditPost extends Component  {
           description={this.state.description}
           bodyText={this.state.bodyText}
           isPublic={this.state.isPublic}
+          postImages={this.state.postImages}
           togglePublic={this.togglePublic.bind(this)}
           updateStateHandler={this.updateStateHandler.bind(this)}
           postDataHandler={this.postDataHandler.bind(this)}
