@@ -64,7 +64,7 @@ const postForm = props => {
                 </div>
 
                 <label>Images</label>
-                <input type="file" onChange={event => props.updateStateHandler(event)}/> 
+                <input type="file" style={{background: 'red'}}onChange={event => props.updateStateHandler(event)}/> 
                 <input type="file" readOnly/> 
                 <input type="file" readOnly/> 
         
