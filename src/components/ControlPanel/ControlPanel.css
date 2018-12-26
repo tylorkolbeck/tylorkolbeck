@@ -2,8 +2,8 @@
     position: fixed;
     top: 200px;
     right: 0px;
-    height: 30px;
-    width: 15px;
+    height: 45px;
+    width: 30px;
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -19,10 +19,12 @@
 }
 
 .ControlPanel__slideout_inner a {
-    color: #4286f4;
+    color: white;
     text-decoration: none;
-    padding: 8px;
+    padding: 0px;
     font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    padding-right: 8px;
 }
 
 .ControlPanel__slideout_inner a:hover {
@@ -39,7 +41,7 @@
     background: #ccc;
     position: fixed;
     top: 200px;
-    height: 30px;
+    height: 45px;
     width: 250px;
     right: -250px;  
     line-height: 46px;

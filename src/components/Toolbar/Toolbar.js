@@ -3,14 +3,20 @@ import DrawerToggleButton from '../TopDrawer/DrawerToggleButton'
 import './Toolbar.css'
 import Logo from '../Logo/Logo'
 import {NavLink} from 'react-router-dom'
+import history from '../../history'
 
 class toolbar extends Component {
+
+  componentDidMount() {
+    console.log(history.location.pathname)
+  }
   
   render() {
+    let menu_logo = history.location.pathname === '/'? null : <div className="toolbar__logo"><a href="/"><Logo /></a></div>
     return (
         <header className="toolbar">
           <nav className="toolbar__navigation">
-            <div className="toolbar__logo"><a href="/"><Logo /></a></div>
+            {menu_logo}
            
             <div className="center__spacer"></div>
             <div className="toolbar__navigation__items">

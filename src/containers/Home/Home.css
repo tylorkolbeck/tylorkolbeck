@@ -2,12 +2,17 @@
 
 .homepage__container {
     font-family: 'Montserrat', sans-serif;
-    padding: 20px;
+    width: 100%;
+    position: relative;
 }
 
-
-
+.home__logo {
+    width: 40%;
+    margin: auto;
+}
 
 @media (max-width: 600px) {
-
+    .home__logo {
+        width: 80%;
+    }
 }

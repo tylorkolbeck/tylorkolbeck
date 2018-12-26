@@ -64,7 +64,7 @@ const postForm = props => {
                 </div>
 
                 <label>Images</label>
-                <input type="file" readOnly/> 
+                <input type="file" /> 
                 <input type="file" readOnly/> 
                 <input type="file" readOnly/> 
         

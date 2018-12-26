@@ -8,6 +8,7 @@ const ControlPanel = props => {
                 <div>
                     <a href="/edit-post"> <i className="material-icons">note_add</i></a>
                     <a href="/contactMsgs"><i className="material-icons">question_answer</i> </a>
+                    <a href="/contactMsgs"><i className="material-icons">supervisor_account</i></a> 
                     <a href="/contactMsgs"><i className="material-icons">lock</i></a>
                 </div>
             </div>

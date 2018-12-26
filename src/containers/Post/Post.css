@@ -26,7 +26,7 @@
   }
   
   .Sync h1:hover {
-    color: rgba(193, 64, 107, 1);
+    color: #2EA399;
     cursor: pointer;
       -webkit-transition: color 500ms linear;
       -ms-transition: color 500ms linear;
@@ -34,7 +34,7 @@
   }
   
   .Sync h1:first-of-type {
-    margin-top: -16px;
+    margin-top: -6px;
   }
 
   .sync__main__info:first-of-type {
@@ -42,14 +42,9 @@
   }
   
   .sync__main__info {
-    padding: 16px;
-    margin-top: -3px;
-    /* margin-left: 8px; */
-  }
-
-  .sync__main__info h1 {
-    margin-bottom: 0px;
-    padding-top: 0px;
+    display: block;
+    /* background: white; */
+    width: 50%;
   }
 
   .sync__main__info h3 {
@@ -61,7 +56,6 @@
   .Sync h1 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 2.3rem;
   }
   
   .Sync h3 {
@@ -72,7 +66,7 @@
   
   .sync__main__info p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
     line-height: 130%;
     letter-spacing: .03rem;
     margin: 0px;
@@ -93,19 +87,15 @@
     color: #DA1C5C;
     cursor: pointer;
   }
-  
+
   .sync__date__desktop {
-    /* border: 1px solid grey; */
-    /* border-radius: 50%; */
-    align-self: flex-start;
-    /* padding: 8px; */
-    border: 1px solid rgba(193, 64, 107, 1);
-    margin-top: 6px;
+    margin-right: 20px;
   }
   
   .sync__date__desktop p{
     margin: 0px;
     padding:0px;
+
   }
   
   .sync__date__mobile {
@@ -117,6 +107,8 @@
     font-size: 2rem;
     padding: 0px;
     margin: 0px;
+    background: #3C3C3E;
+    color: white;
   }
   
   .sync__date__desktop .month {
@@ -124,16 +116,17 @@
     font-size: 1.5rem;
     /* border: 1px solid grey; */
     /* border-radius: 3px 3px 0 0; */
-    padding: 3px;
-    background: rgba(193, 64, 107, 1);
+    padding: 5px;
+    background: #2EA399;
     color: white;
   }
   
   .sync__date__desktop .year {
     text-align: center;
     font-size: 1rem;
-    border-radius: 0 0 3px 3px;
     padding: 3px;
+    background: #3C3C3E;
+    color: white;
   }
   
   .MOBILE_ONLY {
@@ -151,14 +144,14 @@
     border-radius: 3px;
     margin: 5px;
     /* border: 1px solid #ccc; */
-    background-color:rgba(193, 64, 107, .2);
+    background-color:#EEB5B3;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
-    color: #4d4d4d;
+    color: #3C3C3E;
   }
 
   .tag_block:hover {
-    background-color: rgba(193, 64, 107, 1);
+    background-color: #D75550;
     color: white;
     cursor: pointer;
   }
@@ -207,12 +200,6 @@
   .sync__main__info {
     width: 100%;
   }
-
-  /* .sync__main__info h1:first-of-type {
-    width: 100%;
-  } */
-
-
   
   /* MOBILE ANYTHING SMALLER THAN 768*/
   @media (max-width: 768px) {
@@ -225,17 +212,11 @@
       border-left: 0px;
       padding: 0px;
       margin-left: 0px;
-      /* border-top: 1px solid #DA1C5C; */
-      /* border: 1px solid #ccc; */
       width: 100%;
       padding: 10px;
-      /* border-radius: 3px; */
-      /* box-shadow: 2px 2px 3px #4d4d4d; */
     }
   
     .sync__main__info h1 {
-      /* display: inline-block; */
-      /* border-top: 1px solid #DA1C5C; */
       padding-top: 5px;
       padding-bottom: 0px;
       margin-bottom: 0px;
@@ -251,8 +232,7 @@
   
     .sync__date__mobile {
       display: inline-block;
-      font-size: 1rem;
-      color: rgba(193, 64, 107, 1);
+      color: #2EA399;
       padding-left: 5px;
     }
   }

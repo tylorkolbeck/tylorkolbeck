@@ -86,10 +86,10 @@ render () {
           <div className='sync__main__info'>
             <span style={{position: 'absolute', right: '16px'}}>{this.showAdminButtons()}</span>
             <div style={{width:'100%'}}>
-              <h1 style={{display: 'inline-block', marginRight: '50px'}} onClick={(event) => this.props.clicked(event)}>{this.props.title}</h1>
+              <h1 style={{display: 'inline-block', paddingRight: '10px'}} onClick={(event) => this.props.clicked(event)}>{this.props.title}</h1><span style={{fontSize: '1.4rem', color: '#2EA399', fontFamily: '\'Montserrat\', sans-serif'}}>{this.props.author}</span>
             </div>
               
-              <h3><span className='bold' style={{fontSize: '.9rem', paddingLeft: '16px'}}>Author: </span><span style={{fontSize: '.9rem'}}>{this.props.author} </span> <span className='sync__date__mobile'>{this.props.date[2] + this.props.date[1].toUpperCase() + this.props.date[0].toString().slice(-2)}</span></h3>
+              <h3> <span className='sync__date__mobile'>{this.props.date[2] + this.props.date[1].toUpperCase() + this.props.date[0].toString().slice(-2)}</span></h3>
               <p style={{paddingLeft: '16px'}}>{this.props.description}</p>
               <div className='tags' style={{paddingLeft: '16px'}}><span>{this.tagLoop(this.props.tags)}</span></div>
           </div>

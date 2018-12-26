@@ -20,6 +20,7 @@ class EditPost extends Component  {
       description: false,
       bodyText: false,
       isPublic: false,
+      postImages: [],
       _id: false,
       // userId: false
     },
@@ -114,7 +115,7 @@ class EditPost extends Component  {
       description: this.state.description,
       tags: this.state.tags.map((tag) => tag.trim()),
       category: this.state.category,
-      postImages: [],
+      postImages: this.state.postImages,
       isPublic: this.state.isPublic,
       userId: this.state.userId
     }
