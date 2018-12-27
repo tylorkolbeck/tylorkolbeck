@@ -7,9 +7,6 @@ import history from '../../history'
 
 class toolbar extends Component {
 
-  componentDidMount() {
-    console.log(history.location.pathname)
-  }
   
   render() {
     let menu_logo = history.location.pathname === '/'? null : <div className="toolbar__logo"><a href="/"><Logo /></a></div>

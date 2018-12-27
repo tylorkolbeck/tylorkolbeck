@@ -16,6 +16,7 @@
 
 .toolbar__logo {
   height: 100%;
+  margin: 100px;
 }
 
 .toolbar__logo img {
@@ -26,6 +27,7 @@
   width: auto;
   padding: 16px;
   padding-left: 0px;
+  padding: 20px;
 }
 
 .toolbar__logo a {
@@ -99,6 +101,7 @@
   }
 
   .toolbar__logo {
-    margin-left: 0;
+    /* margin-left: 0; */
+    margin: 100px;
   }
 }

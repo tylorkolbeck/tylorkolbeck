@@ -6,6 +6,7 @@ import axios from 'axios';
 // import btns from '../../MyModules/PostFormatter/postFormatter'
 import PostForm from '../../components/PostForm/PostForm'
 
+
  // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
 //  TODO: FIX EDGE CASE WHERE I LOG IN AND THERE IS NO WHERE TO GO BACK TO. THEN JUST GO TO HOME PAGE
 
@@ -39,6 +40,8 @@ class EditPost extends Component  {
     bodyText: '',
     postImages: [],
     isPublic: false,
+
+    selectedFile: null
   }
 
 
@@ -49,23 +52,21 @@ class EditPost extends Component  {
         this.getPostToEdit()
         this.setState({localStoragePrefix: this.state.postId + '-'})
         this.checkLocalStorage()
-        console.log('Not making a new post?')
       }
     }
     // If there is not postId then assume that we are creating a new post. 
     if (!this.props.match.params.postId) {
-      console.log("MAKING A NEW POST?")
       this.checkLocalStorage()
     }
   }
   
   updateStateHandler(event) {
     // let fieldValue = event.target.value
-    console.log(this.state)
     let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
     let fieldName = event.target.name
     this.setState({[fieldName]: fieldValue})
     localStorage.setItem(`${this.state.localStoragePrefix}${fieldName}`, fieldValue)
+    console.log(this.state)
   }
 
   // Checks local storage for any unsaved progress.
@@ -99,10 +100,37 @@ class EditPost extends Component  {
       })
   }
 
-
   togglePublic = () => {
     this.setState({isPublic: !this.state.isPublic})
-    console.log(this.state.isPublic)
+  }
+
+  fileChangedHandler = event => {
+    let file = event.target.files[0]
+    this.setState({
+      selectedFile: file
+    }, function() {this.fileUploadHandler()})
+  }
+
+  fileUploadHandler = () => {
+    const formData = new FormData()
+    formData.append('postImages', this.state.selectedFile, this.state.selectedFile.name)
+    axios.post(process.env.REACT_APP_ROOT_URL + 'posts/image-upload', formData, {
+      onUploadProgress: progressEvent => {
+        console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
+      }
+    })
+      .then((res)=> {
+        let oldState = this.state.postImages
+        this.setState({postImages: [...oldState, res.data.imageUrl[0]]})
+      })
+  }
+
+  deleteImageHandler = (event) => {
+    console.log('Deleting', event.target.alt)
+    axios.get(process.env.REACT_APP_ROOT_URL + 'posts/image-delete/' + event.target.alt)
+      .then((res) => {
+        res.err ? console.log(res.err) : console.log('image deleted')
+      })
   }
 
 
@@ -119,6 +147,7 @@ class EditPost extends Component  {
       isPublic: this.state.isPublic,
       userId: this.state.userId
     }
+    
 
     // If editing an array then run the patch.
     if (this.state.postId === this.state._id) {
@@ -150,27 +179,27 @@ class EditPost extends Component  {
           console.log("[POST - ERROR] - ", err)
         })
     } else { // Then this is a new post. 
-        const formData = new FormData()
-        for ( const key in this.state ) {
-          formData.append(key, data[key])
-        }
+        let keysToSend = ['title','author','tags', 'category', 'description', 'bodyText', 'isPublic', 'postImages']
+        
+        let dataObj = {}
+        keysToSend.forEach((key) => {
+          dataObj[key] = this.state[key]
+        })
+
+        console.log(dataObj)
 
         // The HTTP Request
         axios({
           method: 'post',
           url: process.env.REACT_APP_ROOT_URL + 'posts',
-          data: formData, 
+          data: {...dataObj}, 
       
           headers: {
             'Authorization': localStorage.getItem('Authorization'),
-            'Content-Type': 'multipart/form-data',
-            'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW' 
+            'Content-Type': 'application/json'
           },
         })
           .then(res => {
-            // const fieldNames = ['title', 'author', 'bodyText', 'description', 'tags', 'category']
-
-            // remove from localStorage
             for (let key in data) {
               localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
             }
@@ -181,7 +210,6 @@ class EditPost extends Component  {
   }
 
   showPostForm = () => {
-    console.log(this.state.userId)
     let showNewPostForm;
 
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
@@ -197,7 +225,10 @@ class EditPost extends Component  {
           postImages={this.state.postImages}
           togglePublic={this.togglePublic.bind(this)}
           updateStateHandler={this.updateStateHandler.bind(this)}
+          fileUploadHandler={this.fileUploadHandler.bind(this)}
+          fileChangedHandler={this.fileChangedHandler}
           postDataHandler={this.postDataHandler.bind(this)}
+          deleteImageHandler={this.deleteImageHandler}
         />
     } else if (this.state.userId !== process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
@@ -211,7 +242,6 @@ class EditPost extends Component  {
     
     return (
       <div>
-        {/* {showNewPostForm} */}
         {this.showPostForm()}
       </div>
     )

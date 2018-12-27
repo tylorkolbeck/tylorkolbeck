@@ -4,6 +4,14 @@ import ReactHtmlParser from 'react-html-parser'
 
 const postForm = props => {
     let _txtArea = React.createRef()
+    let uploadedThumbNails = null
+    if (props.postImages) {
+        uploadedThumbNails = props.postImages.map(img => {
+            return <img src={img.location} alt={img.key} key={img.location} style={{width: '100px'}} onClick={props.deleteImageHandler}/>
+            // <img src={props.postImages[0]} alt='post_img1'style={{width: '100px'}}/>
+        })
+    }
+    
     return (
         
         <div className='NewPost'>
@@ -64,9 +72,18 @@ const postForm = props => {
                 </div>
 
                 <label>Images</label>
-                <input type="file" style={{background: 'red'}}onChange={event => props.updateStateHandler(event)}/> 
-                <input type="file" readOnly/> 
-                <input type="file" readOnly/> 
+                <input type="file" onChange={props.fileChangedHandler}/> 
+                <input type="file" onChange={props.fileChangedHandler}/> 
+                <input type="file" onChange={props.fileChangedHandler}/> 
+                <input type="file" onChange={props.fileChangedHandler}/> 
+                <input type="file" onChange={props.fileChangedHandler}/> 
+
+                {uploadedThumbNails}
+                
+                
+                
+                
+                <button onClick={props.fileUploadHandler}>Upload</button>
         
                 <div>
                 Is Public?

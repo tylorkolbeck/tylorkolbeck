@@ -25,6 +25,8 @@ main {
   margin: auto;
   margin-top: 56px;
   /* background-color: dodgerblue; */
+  box-sizing: border-box;
+  padding: 20px;
 }
 
 p {
