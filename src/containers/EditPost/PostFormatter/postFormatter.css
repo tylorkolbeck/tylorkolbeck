@@ -6,8 +6,9 @@
   .NewPost__textarea_buttons span {
     border-left: 1px solid grey;
     border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-bottom: 0px solid grey;
     padding: 5px;
+    background: lightblue;
   }
   
   .NewPost__textarea_buttons span:last-of-type {
@@ -46,4 +47,8 @@
     background: rgb(238, 238, 238);
     border-radius: 3px;
     margin: auto;
+  }
+
+  .newpost_form_container textarea {
+    font-size: 1.2rem;
   }

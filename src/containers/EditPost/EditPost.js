@@ -2,9 +2,8 @@ import React, { Component } from 'react'
 import './EditPost.css'
 import history from '../../history'
 import axios from 'axios';
-// import ReactHtmlParser from 'react-html-parser'
-// import btns from '../../MyModules/PostFormatter/postFormatter'
 import PostForm from '../../components/PostForm/PostForm'
+
 
 
  // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
@@ -41,7 +40,7 @@ class EditPost extends Component  {
     postImages: [],
     isPublic: false,
 
-    selectedFile: null
+    selectedFiles: []
   }
 
 
@@ -105,32 +104,54 @@ class EditPost extends Component  {
   }
 
   fileChangedHandler = event => {
-    let file = event.target.files[0]
-    this.setState({
-      selectedFile: file
-    }, function() {this.fileUploadHandler()})
+    if (event.target.files[0]) {
+      let oldFileObject = [...this.state.selectedFiles]
+      let fileObject = {}
+      fileObject.file = event.target.files[0]
+      fileObject.name = Date.now().toString() + "-" + event.target.files[0].name
+      fileObject.location = ''
+  
+  
+      this.setState({
+        selectedFiles: [...oldFileObject, fileObject]
+  
+      }, function() {        
+          this.fileUploadHandler(fileObject) 
+        })
+    } else {
+      return
+    }
+   
   }
 
-  fileUploadHandler = () => {
-    const formData = new FormData()
-    formData.append('postImages', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post(process.env.REACT_APP_ROOT_URL + 'posts/image-upload', formData, {
-      onUploadProgress: progressEvent => {
-        console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
-      }
-    })
-      .then((res)=> {
-        let oldState = this.state.postImages
-        this.setState({postImages: [...oldState, res.data.imageUrl[0]]})
+  fileUploadHandler = (fileObject) => {
+    if (fileObject.file) {
+      const formData = new FormData()
+      formData.append('postImages', fileObject.file, fileObject.name)
+      axios.post(process.env.REACT_APP_ROOT_URL + 'posts/image-upload', formData, {
+        onUploadProgress: progressEvent => {
+          console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
+        }
       })
+      .then((res)=> {
+        const fileObjToUpdate = this.state.selectedFiles.find(fileObj => fileObj.name === fileObject.name );
+        fileObjToUpdate.location = res.data.imageUrl[0].location
+        let oldState = this.state.postImages
+        this.setState({postImages: [...oldState, res.data.imageUrl[0].location]})
+      })
+    } else {
+      return
+    }
+    
+      
   }
 
   deleteImageHandler = (event) => {
-    console.log('Deleting', event.target.alt)
+    let oldState = [...this.state.selectedFiles]
+    let newState = oldState.filter(url => url.name !== event.target.alt)
+    this.setState({selectedFiles: newState})
+    
     axios.get(process.env.REACT_APP_ROOT_URL + 'posts/image-delete/' + event.target.alt)
-      .then((res) => {
-        res.err ? console.log(res.err) : console.log('image deleted')
-      })
   }
 
 
@@ -222,7 +243,7 @@ class EditPost extends Component  {
           description={this.state.description}
           bodyText={this.state.bodyText}
           isPublic={this.state.isPublic}
-          postImages={this.state.postImages}
+          postImages={this.state.selectedFiles}
           togglePublic={this.togglePublic.bind(this)}
           updateStateHandler={this.updateStateHandler.bind(this)}
           fileUploadHandler={this.fileUploadHandler.bind(this)}

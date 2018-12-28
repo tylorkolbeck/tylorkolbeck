@@ -1,0 +1,180 @@
+.NewPost {
+    height: 100%;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .NewPost h1 {
+    font-weight: 400;
+    color: rgb(49, 49, 49);
+  }
+  
+  .newpost_form_container {
+    position: relative;
+    background: 'yellow';
+    width: 80%;
+    max-width: 1200px;
+    margin: auto;
+  }
+
+  .newpost_form_container hr {
+    border-color: dodgerblue;
+    margin: 50px 0px;
+  }
+
+  .newpost_form_container input[type="text"] {
+    display: block;
+    width: 300px;
+  }
+  
+  .NewPost textarea {
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    width: 100%;
+    height: 80px;
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  
+  .NewPost input {
+    font-size: .8rem;
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    /* width: 100%; */
+    padding: 6px;
+    box-sizing: border-box;
+  }
+  
+  .NewPost input:focus {
+    background: #f2f2f2;
+  }
+  
+  .NewPost textarea:focus,
+  .NewPost input:focus {
+    outline: none;
+    background: #f2f2f2;
+  }
+  
+  .NewPost label {
+    font-size: .9rem;
+    border: 0px;
+    border-radius: 5px 5px 0 0;
+    color: rgb(49, 49, 49);
+  }
+  
+  .NewPost .submit-button {
+    display: block;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    margin: 50px 10px;
+    outline: none;
+    padding: 8px;
+    color:rgb(49, 49, 49);
+    border-radius: 5px;
+  }
+  
+  .NewPost button:hover {
+    cursor: pointer;
+    background: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+  }
+  
+  .newpost__live_preview_container {
+    padding: 8px;
+    background-color: rgb(219, 219, 219, .3);
+    white-space: pre-wrap;
+    border-radius: 5px;
+  }
+  
+  /* Customize the label (the container) */
+  .newpost__ispublic_container {
+    display: block;
+    margin: 20px; 
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .newpost__ispublic_container input {
+    /* position: absolute; */
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .newpost__ispublic_checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .newpost__ispublic_container:hover input ~ .newpost__ispublic_checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .newpost__ispublic_container input:checked ~ .newpost__ispublic_checkmark {
+    background-color: #84BE6A;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .newpost__ispublic_checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .newpost__ispublic_container input:checked ~ .newpost__ispublic_checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .newpost__ispublic_container .newpost__ispublic_checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  
+  
+  @media (max-width: 768px) {
+    .newpost_form_container {
+      width: 100%;
+    }
+  
+  }
+  
+  @media (max-width: 500px) {
+    .newpost_form_container input[type="text"] {
+      width: 100%;
+    }
+  }
+  

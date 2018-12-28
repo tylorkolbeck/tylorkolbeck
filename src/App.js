@@ -15,7 +15,7 @@ import EditPost from './containers/EditPost/EditPost'
 import ContactMsgs from './containers/ContactMsgs/ContactMsgs'
 import ControlPanel from './components/ControlPanel/ControlPanel'
 import ContactForm from './containers/ContactForm/ContactForm'
-import './MyModules/PostFormatter/postFormatter.css'
+
 
 
 

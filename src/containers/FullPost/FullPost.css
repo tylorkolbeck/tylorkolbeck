@@ -34,19 +34,19 @@
 
 .fullpost__description {
   color: rgb(146, 145, 145);
-  width: 80%;
-  border-left: 2px solid #c1406b;
-  padding-left: 16px;
+  width: 90%;
+  border-left: 2px solid #D75550;
+  padding-left: 8px;
   font-style: italic;
   margin: auto;
   margin-bottom: 50px;
 }
 
 .fullpost__author {
-  border: 1px solid #c1406b;
+  border: 1px solid #D75550;
   border-radius: 2px;
   padding: 8px;
-  color: #c1406b;
+  color: #D75550;
   font-size: .9rem;
 }
 
@@ -83,7 +83,8 @@
 }
 
 .fullpost__date {
-  font-size: .9rem;
+  font-size: 1.2rem;
+  color:  #2EA399;
 }
 
 .photo_display {
@@ -105,5 +106,6 @@
   }
   .fullpost__description {
     width: 100%;
+    font-size: 1.2rem;
   }
 }

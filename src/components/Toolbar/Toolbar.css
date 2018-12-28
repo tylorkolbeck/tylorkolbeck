@@ -44,7 +44,7 @@
   display: block;
   font-family: 'Spicy Rice', cursive;
   font-size: 1.6rem;
-  color: #DA1C5C;
+  color:  #2EA399;
   transform: rotate(15deg);
 }
 
@@ -65,23 +65,23 @@
   font-weight: 500;
   color: #4d4d4d;
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   padding-bottom: 5px;
 }
 
 .menu_login_link:hover {
-  color: #c1406b;
+  color:  #2EA399;
   cursor: pointer;
 }
 
 .toolbar__navigation__items a:hover,
 .toolbar__navigation__items a:active,
 .toolbar__navigation__items a.active {
-  color: #c1406b;
+  color:  #2EA399;
 }
 
 .toolbar__navigation__items a.active {
-  border-bottom: 2px solid #c1406b;
+  border-bottom: 2px solid  #2EA399;
 }
 
 .toolbar__navigation__items.active {

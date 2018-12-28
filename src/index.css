@@ -2,7 +2,7 @@ html {
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  font-size: 62.5%;
+  font-size: 16px;
 }
 
 body {
@@ -15,7 +15,7 @@ body {
   height: 100%;
   width:100%;
   min-width: 400px;
-  background: #F2F2F1;
+  /* background: #F2F2F1; */
 }
 
 main {

@@ -271,21 +271,24 @@ class AllPosts extends Component {
   let tagDropDown = this.state.tagsArray.map((tag) => <option key={tag}>{tag}</option>)
 
     return (
-      <div className='AllPostsContainer'>
-      {editSlider()}
-        <div style={{display: 'inline', float: 'left', marginLeft: '0px', marginBottom: '50px'}}>
-          {/* <span style={{fontFamily: '\'Montserrat\', sans-serif', fontWeight: '400', fontSize: '1rem'}}></span> */}
+     <div>
+     {editSlider()}
+     
+          
           <select className="allPosts__tag_filter_dropdown" onChange={(e) => this.filterByDropDown(e)}style={{display: 'inline'}}>
-            <option>Filter</option>
-            {tagDropDown}
+              <option>Filter</option>
+              {tagDropDown}
           </select>
-        </div>
-        
-        
-        {filterSpan()}
-        {getFilters()}
-        {posts}
-      </div> 
+          {filterSpan()}
+          {getFilters()}
+
+         
+
+        <div className='AllPostsContainer'>
+          {posts}
+        </div> 
+
+      </div>
     )
   }
 }

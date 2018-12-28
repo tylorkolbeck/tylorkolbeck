@@ -11,6 +11,10 @@ const btns = {
     pre     : [`<pre></pre>`, 5],
     tab     : [`style='padding-left: 1rem'`, 27],
     p       : [`<p></p>`, 3],
+    img     : [`<img src="" alt="" />`, 17],
+    ul      : [`<ul>\n<li></li>\n</ul>`, 9],
+    ol      : [`<ol>\n<li></li>\n</ol>`,9],
+    li      : [`<li></li>`, 4],
 
 
     getCursorLocation(e) {

@@ -1,22 +1,29 @@
 import React from 'react'
-import btns from '../../MyModules/PostFormatter/postFormatter'
+import btns from '../../containers/EditPost/PostFormatter/postFormatter'
+import '../../containers/EditPost/PostFormatter/postFormatter.css'
 import ReactHtmlParser from 'react-html-parser'
+import './PostForm.css'
 
 const postForm = props => {
     let _txtArea = React.createRef()
     let uploadedThumbNails = null
     if (props.postImages) {
-        uploadedThumbNails = props.postImages.map(img => {
-            return <img src={img.location} alt={img.key} key={img.location} style={{width: '100px'}} onClick={props.deleteImageHandler}/>
-            // <img src={props.postImages[0]} alt='post_img1'style={{width: '100px'}}/>
+        uploadedThumbNails = props.postImages.map((img) => {
+            return <div key={img.name} style={{border: '1px solid red', }}><img src={img.location} alt={img.name}  style={{width: '100px'}} onClick={props.deleteImageHandler}/><textarea style={{width: '100px'}} value={img.location} readOnly></textarea></div>
         })
     }
     
     return (
         
         <div className='NewPost'>
+
+            
+            
+
             <div className="newpost_form_container">
-        
+                <label>Public?</label>
+                <input type="checkbox" name="isPublic" checked={props.isPublic} onChange={props.togglePublic}></input>
+                <br></br>
                 <label style={{marginTop: '30px'}}>Title</label>
             
                 <input type='text' name="title" value={props.title} onChange={event => props.updateStateHandler(event)} />
@@ -27,29 +34,38 @@ const postForm = props => {
                 <label>Tags</label>
                 <input type='text' name="tags" value={props.tags} onChange={event => props.updateStateHandler(event)} />
                 
-                <label>Category</label>
-                <input type='text' name="category" value={undefined} onChange={event => props.updateStateHandler(event)} />
+                {/* <label>Category</label>
+                <input type='text' name="category" value={undefined} onChange={event => props.updateStateHandler(event)} /> */}
                 
 
                 <label>Description</label>
                 <textarea name="description" value={props.description} onChange={event => props.updateStateHandler(event)} />
 
                 <div className="NewPost__textArea_formatter">
-                    <div className="NewPost__textarea_buttons">
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><b className="bold">Bold </b></span>
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><i className="italic">italic</i></span>
-                    <span className="unl" onClick={(e)=> btns.insertTag(e, _txtArea.current)}>Underline</span>
+                    <div className="NewPost__textarea_buttons" style={{
+                        display: 'flex', 
+                        flexDirection: 'row', 
+                        alignItems: 'flex-start',
+                        flexWrap: 'wrap' }}>
+
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><b className="bold"> B </b></span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><i className="italic"> I </i></span>
+                    <span className="unl" onClick={(e)=> btns.insertTag(e, _txtArea.current)}> U </span>
 
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="p">p</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="tab">tab</span>
 
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h1">h1</span>
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h2">h2</span>
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h3">h3</span>
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h4">h4</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h1">H1</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h2">H2</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h3">H3</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h4">H4</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="img">img</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="ul">ul</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="ol">ol</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="li">li</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="pre">&lt; &gt;</span>
 
-                    <span>{props.cursorLocation}</span>
+                    {/* <span>{props.cursorLocation}</span> */}
 
                     </div>
                     
@@ -67,34 +83,60 @@ const postForm = props => {
 
                 </div>
 
+                <hr></hr>
+
+                <h1>Live Preview</h1>
                 <div className="newpost__live_preview_container">
                     {ReactHtmlParser(props.bodyText)}
                 </div>
 
-                <label>Images</label>
-                <input type="file" onChange={props.fileChangedHandler}/> 
-                <input type="file" onChange={props.fileChangedHandler}/> 
-                <input type="file" onChange={props.fileChangedHandler}/> 
-                <input type="file" onChange={props.fileChangedHandler}/> 
-                <input type="file" onChange={props.fileChangedHandler}/> 
+                <hr></hr>
+                
 
-                {uploadedThumbNails}
+                {/* <div className="PostForm__image_upload_controls">
+                    <div className="PostForm__upload_hider">
+                        <input type="file" onChange={props.fileChangedHandler}/></div>
+                    </div>
+                    <div>
+                </div> */}
+                <h1>Images</h1> 
+                <div style={{
+                    border: '1px solid grey', 
+                    width: '100%', 
+                    minHeight: '200px', 
+                    padding: '16px', 
+                    boxSizing: 'border-box', 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    alignItems: 'flex-start',
+                    flexWrap: 'wrap'}}>
+                    
+                        {uploadedThumbNails}
+                </div>
                 
                 
                 
-                
-                <button onClick={props.fileUploadHandler}>Upload</button>
-        
-                <div>
-                Is Public?
-                <label className="newpost__ispublic_container">
-                    <input type="checkbox" name="isPublic" checked={props.isPublic} onChange={props.togglePublic}></input>
-                    <span className="newpost__ispublic_checkmark"></span>
-                    </label>
+                <div className="upload-btn-wrapper">
+                    <button className="btn">Upload image</button>
+                    <input type="file" onChange={props.fileChangedHandler}/>
                 </div>
             
-                <button onClick={props.postDataHandler}>Update Post</button> 
+            {/*         
+                <div style={{border: '1px solid grey', display: 'inline-block', height: '50px', padding: '5px'}}>
+                    <span>Public?</span>
+                    <label className="newpost__ispublic_container">
+                        <input type="checkbox" name="isPublic" checked={props.isPublic} onChange={props.togglePublic}></input>
+                        <span className="newpost__ispublic_checkmark"></span>
+                    </label>
+                    
+                </div> 
+            */}
+
+            <hr></hr>
+                 
+                <button className="submit-button" onClick={props.postDataHandler}>Update Post</button>
             </div>
+            
         </div>
     
     )
