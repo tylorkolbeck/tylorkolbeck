@@ -6,6 +6,7 @@ import PostForm from '../../components/PostForm/PostForm'
 
 
 
+
  // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
 //  TODO: FIX EDGE CASE WHERE I LOG IN AND THERE IS NO WHERE TO GO BACK TO. THEN JUST GO TO HOME PAGE
 
@@ -40,7 +41,11 @@ class EditPost extends Component  {
     postImages: [],
     isPublic: false,
 
-    selectedFiles: []
+    unsavedChanges: false,
+
+    selectedFiles: [],
+
+    loading:false
   }
 
 
@@ -73,11 +78,17 @@ class EditPost extends Component  {
     let storageDataObj = {...this.state.postItems}
     for(let key in storageDataObj) {
       if (key === 'tags' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+          this.setState({unsavedChanges: true})
           storageDataObj[key] = true
           this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(',')})
       }
 
+       else if (key === 'postImages' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+        this.setState({[key]:localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(','),unsavedChanges: true})
+      }
+
       else if (localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+        this.setState({unsavedChanges: true})
         storageDataObj[key] = true
         this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`), postItems: storageDataObj})
       }
@@ -87,12 +98,15 @@ class EditPost extends Component  {
 
   // Fetch the post to edit when a postId is in the URL(checked above)
   getPostToEdit() {
+    this.setState({loading: true})
     axios.get('/posts/' + this.props.match.params.postId) 
     .then(res => {
         for (let key in this.state.postItems) {
           this.setState({[key]: res.data.doc[key]})
         }
+        console.log(this.state)
         this.checkLocalStorage()
+        this.setState({loading: false})
       })
       .catch(err => {
         console.log(err)
@@ -111,11 +125,10 @@ class EditPost extends Component  {
       fileObject.name = Date.now().toString() + "-" + event.target.files[0].name
       fileObject.location = ''
   
-  
       this.setState({
         selectedFiles: [...oldFileObject, fileObject]
   
-      }, function() {        
+      }, function() {          
           this.fileUploadHandler(fileObject) 
         })
     } else {
@@ -136,27 +149,43 @@ class EditPost extends Component  {
       .then((res)=> {
         const fileObjToUpdate = this.state.selectedFiles.find(fileObj => fileObj.name === fileObject.name );
         fileObjToUpdate.location = res.data.imageUrl[0].location
-        let oldState = this.state.postImages
-        this.setState({postImages: [...oldState, res.data.imageUrl[0].location]})
+        let oldState = [...this.state.postImages]
+        oldState.push(res.data.imageUrl[0].location)
+        this.setState({postImages: oldState} ,function() {
+          localStorage.setItem(this.state.localStoragePrefix + 'postImages', this.state.postImages)
+        })
       })
     } else {
       return
     }
-    
-      
   }
 
   deleteImageHandler = (event) => {
     let oldState = [...this.state.selectedFiles]
+    let oldUrls = [...this.state.postImages]
     let newState = oldState.filter(url => url.name !== event.target.alt)
-    this.setState({selectedFiles: newState})
-    
-    axios.get(process.env.REACT_APP_ROOT_URL + 'posts/image-delete/' + event.target.alt)
+
+    let newUrls = oldUrls.filter((url) => url !== event.target.src)
+
+    this.setState({selectedFiles: newState, postImages: newUrls})
+    try {
+      oldUrls.splice(oldUrls.indexOf(event.target.src))
+      localStorage.setItem(this.state.localStoragePrefix + 'postImages', oldUrls)
+    }
+    catch(err) {
+      console.log('Error removing url from url array', err)
+    }
+    finally {
+      console.log('Array After', oldUrls)
+    }
+
+    axios.get(process.env.REACT_APP_ROOT_URL + 'posts/image-delete/' + event.target.alt.match(/\/([^/]+)\/?$/)[1])
   }
 
 
   // When form is submitted then set the data and patch request to the DB.
   postDataHandler = () => {
+    this.setState({loading: true})
     const data = {
       title: this.state.title,
       author: this.state.author,
@@ -194,6 +223,7 @@ class EditPost extends Component  {
           for (let key in data) {
             localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
           }
+          this.setState({loading: false})
         })
         .then(() =>  history.push('/all-posts'))
         .catch(err => {
@@ -223,6 +253,7 @@ class EditPost extends Component  {
           .then(res => {
             for (let key in data) {
               localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
+              this.setState({loading: false})
             }
           })
           .then(() =>  history.push('/all-posts'))
@@ -232,6 +263,7 @@ class EditPost extends Component  {
 
   showPostForm = () => {
     let showNewPostForm;
+    
 
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = 
@@ -243,13 +275,15 @@ class EditPost extends Component  {
           description={this.state.description}
           bodyText={this.state.bodyText}
           isPublic={this.state.isPublic}
-          postImages={this.state.selectedFiles}
+          selectedFiles={this.state.selectedFiles}
+          postImages={this.state.postImages}
           togglePublic={this.togglePublic.bind(this)}
           updateStateHandler={this.updateStateHandler.bind(this)}
           fileUploadHandler={this.fileUploadHandler.bind(this)}
           fileChangedHandler={this.fileChangedHandler}
           postDataHandler={this.postDataHandler.bind(this)}
           deleteImageHandler={this.deleteImageHandler}
+          loading={this.state.loading}
         />
     } else if (this.state.userId !== process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
@@ -260,10 +294,19 @@ class EditPost extends Component  {
   }
   
   render () {
-    
     return (
       <div>
+        {this.state.unsavedChanges && 
+          <div className="alert">
+            <span className="closebtn">!</span> 
+              You have unsaved changes.
+          </div>}
         {this.showPostForm()}
+        {this.state.unsavedChanges && 
+          <div className="alert">
+            <span className="closebtn">!</span> 
+              You have unsaved changes.
+          </div>}
       </div>
     )
   }

@@ -70,6 +70,12 @@
   font-weight: 400;
 }
 
+.FullPost a {
+  text-decoration: none;
+  background-color: none;
+  color: #2EA399;
+}
+
 .fullpost__bodyText_container {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.3rem;

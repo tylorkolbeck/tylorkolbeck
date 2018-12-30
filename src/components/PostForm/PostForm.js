@@ -6,20 +6,26 @@ import './PostForm.css'
 
 const postForm = props => {
     let _txtArea = React.createRef()
-    let uploadedThumbNails = null
-    if (props.postImages) {
-        uploadedThumbNails = props.postImages.map((img) => {
-            return <div key={img.name} style={{border: '1px solid red', }}><img src={img.location} alt={img.name}  style={{width: '100px'}} onClick={props.deleteImageHandler}/><textarea style={{width: '100px'}} value={img.location} readOnly></textarea></div>
-        })
-    }
+    let uploadedThumbNails = []
+    // if (props.selectedFiles) {
+    //     uploadedThumbNails = props.selectedFiles.map((img) => {
+    //         return <div key={img.name}><img src={img.location} alt={img.location}  style={{width: '100px'}} onClick={props.deleteImageHandler}/><textarea style={{height: '50px', fontSize: '.5rem', border: '0px'}} value={img.location} readOnly></textarea></div>
+    //     })
+    // }
     
+    if (!props.loading && props.postImages.length > 0) {
+        uploadedThumbNails.push(
+            props.postImages.map((url) => {
+                return <div key={url} style={{borderBottom: '1px solid #ccc', margin: '5px'}}><img src={url} alt={url} style={{width: '100px'}} onClick={props.deleteImageHandler}></img><br></br><textarea style={{height: '50px', fontSize: '.5rem', border: '0px'}} value={url} readOnly></textarea></div>
+            })
+        )
+        console.log(uploadedThumbNails)
+        // props.postImages.map()
+        console.log(props.postImages)
+    }
     return (
         
         <div className='NewPost'>
-
-            
-            
-
             <div className="newpost_form_container">
                 <label>Public?</label>
                 <input type="checkbox" name="isPublic" checked={props.isPublic} onChange={props.togglePublic}></input>
@@ -34,9 +40,9 @@ const postForm = props => {
                 <label>Tags</label>
                 <input type='text' name="tags" value={props.tags} onChange={event => props.updateStateHandler(event)} />
                 
-                {/* <label>Category</label>
-                <input type='text' name="category" value={undefined} onChange={event => props.updateStateHandler(event)} /> */}
-                
+                <label>Notes(Not seen by the public)</label>
+                {/* <input type='text' name="category" value={undefined} onChange={event => props.updateStateHandler(event)} />  */}
+                <textarea name="category" value={props.category} onChange={event => props.updateStateHandler(event)} />
 
                 <label>Description</label>
                 <textarea name="description" value={props.description} onChange={event => props.updateStateHandler(event)} />
@@ -51,14 +57,17 @@ const postForm = props => {
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><b className="bold"> B </b></span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)}><i className="italic"> I </i></span>
                     <span className="unl" onClick={(e)=> btns.insertTag(e, _txtArea.current)}> U </span>
-
-                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="p">p</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="tab">tab</span>
-
+                    <span style={{background: 'none', border: 'none', width: '10px'}}>  </span>
+                                      
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h1">H1</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h2">H2</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h3">H3</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="h4">H4</span>
+                    <span style={{background: 'none', border: 'none', width: '10px'}}>  </span>
+
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="p">p</span>
+                    <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="a">a</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="img">img</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="ul">ul</span>
                     <span onClick={(e)=> btns.insertTag(e, _txtArea.current)} className="ol">ol</span>
@@ -113,8 +122,6 @@ const postForm = props => {
                     
                         {uploadedThumbNails}
                 </div>
-                
-                
                 
                 <div className="upload-btn-wrapper">
                     <button className="btn">Upload image</button>

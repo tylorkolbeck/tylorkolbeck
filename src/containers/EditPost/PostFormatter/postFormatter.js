@@ -15,6 +15,7 @@ const btns = {
     ul      : [`<ul>\n<li></li>\n</ul>`, 9],
     ol      : [`<ol>\n<li></li>\n</ol>`,9],
     li      : [`<li></li>`, 4],
+    a       : [`<a href=''></a>`, 11],
 
 
     getCursorLocation(e) {
@@ -22,7 +23,6 @@ const btns = {
     },
 
     setCursorLocation(e, txtArea, end) {
-        
         // txtArea.value = txtArea.value
         if (txtArea !== null) {
             if (txtArea.createTextRange) {
@@ -44,8 +44,6 @@ const btns = {
     },
 
     tabHandler(e, txtArea) {
-        console.log('test')
-        console.log(txtArea)
         if (e.keyCode === 9) {
           e.preventDefault()    
           }

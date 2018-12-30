@@ -162,9 +162,35 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
-  
-  
-  
+
+  /* The alert message box */
+.alert {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  width: 50%;
+  margin: auto;
+  border-radius: 2px;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
+}
+
   @media (max-width: 768px) {
     .newpost_form_container {
       width: 100%;

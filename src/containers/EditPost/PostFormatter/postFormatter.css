@@ -7,13 +7,14 @@
     border-left: 1px solid grey;
     border-top: 1px solid grey;
     border-bottom: 0px solid grey;
-    padding: 5px;
+    border-right: 1px solid grey;
+    padding: 7px;
     background: lightblue;
+    margin: 1px;
+    color: rgb(85, 85, 85);
   }
   
-  .NewPost__textarea_buttons span:last-of-type {
-    border-right: 1px solid grey;
-  }
+ 
   
   .NewPost__textarea_buttons span:hover {
     cursor: pointer;
