@@ -3,7 +3,7 @@ import https from 'https'
 
 // Set up for axios
 // axios.defaults.baseURL = 'http://localhost:3000'  // For local development testing
-axios.defaults.baseURL = 'http://54.148.26.236:3000' // For deployed state
+axios.defaults.baseURL = 'http://54.148.26.236:443' // For deployed state
 
 
 
