@@ -9,7 +9,7 @@ axios.defaults.baseURL = 'http://54.148.26.236:3000' // For deployed state
 
 const instance = axios.create({
   // baseURL: 'http://localhost:3000',  //  For local development testing
-  baseURL: 'http://54.148.26.236:3000', //  For deployed state
+  baseURL: 'https://54.148.26.236:3000', //  For deployed state
   
   httpsAgent: new https.Agent({  
     rejectUnauthorized: false
