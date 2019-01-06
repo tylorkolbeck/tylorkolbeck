@@ -132,7 +132,7 @@ class AllPosts extends Component {
     }
     else if (this.state.filter.length === 0) {
       // axios.get('/posts')
-      axios.get('https://54.148.26.236:443/posts')
+      axios.get('https://rest-blog.thedailyfunc.com/posts')
       .then((response => {
         let posts = []   
   
