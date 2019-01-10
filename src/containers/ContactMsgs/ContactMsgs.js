@@ -17,7 +17,7 @@ class ContactMsgs extends Component {
     deleteMessage(e, postId) {
         axios({
             method: 'delete',
-            url: process.env.REACT_APP_ROOT_URL + 'msg/' + postId,
+            url: 'https://api.thedailyfunc.com/msg/' + postId,
             headers: {
                 'Authorization': localStorage.getItem('Authorization')
             }
@@ -41,7 +41,7 @@ class ContactMsgs extends Component {
 
         axios({
             method: 'patch',
-            url: process.env.REACT_APP_ROOT_URL + 'msg/' + postId,
+            url: 'https://api.thedailyfunc.com/msg/' + postId,
             data: [{propName: "wasRead", value: readBool}], 
          
             headers: {

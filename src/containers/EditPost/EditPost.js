@@ -210,7 +210,7 @@ class EditPost extends Component  {
   
       axios({
         method: 'patch',
-        url: process.env.REACT_APP_ROOT_URL + 'posts/' + this.state._id,
+        url: '/posts/' + this.state._id,
         data: dataArray, 
      
         headers: {
