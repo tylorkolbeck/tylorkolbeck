@@ -60,7 +60,7 @@ class ContactMsgs extends Component {
     componentDidMount() {
         axios({
             method: 'get',
-            url: process.env.REACT_APP_ROOT_URL + 'msg',
+            url: 'https://api.thedailyfunc.com/msg',
             headers: {
                 'Authorization': localStorage.getItem('Authorization'),
                 'Content-Type': 'multipart/form-data',
