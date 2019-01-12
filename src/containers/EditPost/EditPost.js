@@ -62,6 +62,7 @@ class EditPost extends Component  {
     if (!this.props.match.params.postId) {
       this.checkLocalStorage()
     }
+    console.log('TEST ----- ', process.env.REACT_APP_ROOT_URL)
   }
   
   updateStateHandler(event) {
@@ -141,7 +142,7 @@ class EditPost extends Component  {
     if (fileObject.file) {
       const formData = new FormData()
       formData.append('postImages', fileObject.file, fileObject.name)
-      axios.post(process.env.REACT_APP_ROOT_URL + 'posts/image-upload', formData, {
+      axios.post('https://api.thedailyfunc.com/posts/image-upload', formData, {
         onUploadProgress: progressEvent => {
           console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
         }
@@ -179,7 +180,7 @@ class EditPost extends Component  {
       console.log('Array After', oldUrls)
     }
 
-    axios.get(process.env.REACT_APP_ROOT_URL + 'posts/image-delete/' + event.target.alt.match(/\/([^/]+)\/?$/)[1])
+    axios.get('https://api.thedailyfunc.com/posts/image-delete/' + event.target.alt.match(/\/([^/]+)\/?$/)[1])
   }
 
 
@@ -242,7 +243,7 @@ class EditPost extends Component  {
         // The HTTP Request
         axios({
           method: 'post',
-          url: process.env.REACT_APP_ROOT_URL + 'posts',
+          url: 'https://api.thedailyfunc.com/posts',
           data: {...dataObj}, 
       
           headers: {

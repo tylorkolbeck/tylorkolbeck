@@ -141,7 +141,7 @@ const postForm = props => {
 
             <hr></hr>
                  
-                <button className="submit-button" onClick={props.postDataHandler}>Update Post</button>
+                <button className="submit-button" onClick={props.postDataHandler}>Post</button>
             </div>
             
         </div>
