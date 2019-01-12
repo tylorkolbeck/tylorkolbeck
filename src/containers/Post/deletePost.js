@@ -6,7 +6,7 @@ export const deletePostHandler = (postId, userId, stateHandler) => {
             'Authorization': localStorage.getItem('Authorization'),
             'Content-Type': 'application/json'
         }
-        const deleteUrl = process.env.REACT_APP_ROOT_URL + 'posts/' + postId
+        const deleteUrl = process.env.REACT_APP_ROOT_URL + '/posts/' + postId
         const axiosConfigObject = {headers: httpReqHeaders}
         axios.delete(deleteUrl, axiosConfigObject)
         .then((res) => {
