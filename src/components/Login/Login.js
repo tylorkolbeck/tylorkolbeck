@@ -12,13 +12,10 @@ class login extends Component {
     }
 
     componentDidMount() {
-        // console.log("[LOGIN]: COMPONENT DID MOUNT")
-        // console.log(this.props.userId)
         if (this.props.userId) {
             localStorage.removeItem('Authorization')
             localStorage.removeItem('userId')
             this.props.loginCheck()
-            // console.log('LOGGED OUT')
         } 
     }
 
@@ -27,7 +24,6 @@ class login extends Component {
             localStorage.removeItem('Authorization')
             localStorage.removeItem('userId')
             this.props.loginCheck()
-            // console.log('LOGGED OUT')
         } 
     }
 

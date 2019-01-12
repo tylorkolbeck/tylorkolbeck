@@ -81,7 +81,7 @@ class App extends Component {
       // console.log(`Current URL is ${location.pathname}`)
     })
 
-    let controlPanel = this.state.userId === process.env.REACT_APP_ADMIN_USERID ? <ControlPanel /> : null
+    let controlPanel = this.state.userId === '5c39595fe7ecac077006ec57' ? <ControlPanel /> : null
     
 
     let backdrop
