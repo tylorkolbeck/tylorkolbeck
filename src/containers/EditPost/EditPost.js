@@ -62,7 +62,6 @@ class EditPost extends Component  {
     if (!this.props.match.params.postId) {
       this.checkLocalStorage()
     }
-    console.log('TEST ----- ', process.env.REACT_APP_ROOT_URL)
   }
   
   updateStateHandler(event) {
