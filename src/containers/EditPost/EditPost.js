@@ -5,8 +5,6 @@ import axios from 'axios';
 import PostForm from '../../components/PostForm/PostForm'
 
 
-
-
  // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
 //  TODO: FIX EDGE CASE WHERE I LOG IN AND THERE IS NO WHERE TO GO BACK TO. THEN JUST GO TO HOME PAGE
 
@@ -138,6 +136,10 @@ class EditPost extends Component  {
   }
 
   fileUploadHandler = (fileObject) => {
+
+    
+
+
     if (fileObject.file) {
       const formData = new FormData()
       formData.append('postImages', fileObject.file, fileObject.name)
