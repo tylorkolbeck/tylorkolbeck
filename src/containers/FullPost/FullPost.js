@@ -11,7 +11,7 @@ class FullPost extends Component {
   }
 
   componentDidMount() {
-    console.log('sdsd',this.props.userId)
+    
     if (this.props.match.params.id) {
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id))
       axios.get('/posts/' + this.props.match.params.id) // This retrieves the object at that location
@@ -20,7 +20,7 @@ class FullPost extends Component {
             ...response.data
           }
           this.setState({loadedPost: newData})
-          console.log(this.state.loadedPost)
+    
         })
         .catch(err => {
           console.log(err)
@@ -43,7 +43,7 @@ class FullPost extends Component {
 
     if (this.state.loadedPost) {
       let syncData = this.state.loadedPost.doc
-      console.log("TEST" + syncData)
+      
 
       // const getFilters = () => { 
       //   const filterArray = []
