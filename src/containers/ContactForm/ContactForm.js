@@ -72,7 +72,7 @@ class ContactForm extends Component {
           // The HTTP Request
         axios({
         method: 'post',
-        url: process.env.REACT_APP_ROOT_URL + 'msg',
+        url: 'https://api.thedailyfunc.com/msg',
         data: {...data}
         })
         .then(res => {
