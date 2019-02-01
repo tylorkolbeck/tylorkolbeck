@@ -1,5 +1,3 @@
-
-
 export function dateConversion(ISODate, format) {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   const dateArray = []
@@ -35,3 +33,10 @@ export function dateConversion(ISODate, format) {
       start = end = start+1
       }
   }
+
+  export function guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(8).substring(1);
+    };
+    return (S4() + "-" + S4());
+}

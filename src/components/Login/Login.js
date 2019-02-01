@@ -30,6 +30,7 @@ class login extends Component {
     loginButtonHandler(state) {
         axios({
             method: 'post',
+            // url: 'http://localhost:3000/user/login',
             url: 'https://api.thedailyfunc.com/user/login',
             data: {
                 email: this.state.email,

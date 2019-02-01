@@ -94,7 +94,7 @@ const postForm = props => {
 
                 <hr></hr>
 
-                <h1>Live Preview</h1>
+                <h2>Live Preview</h2>
                 <div className="newpost__live_preview_container">
                     {ReactHtmlParser(props.bodyText)}
                 </div>
@@ -108,7 +108,7 @@ const postForm = props => {
                     </div>
                     <div>
                 </div> */}
-                <h1>Images</h1> 
+                <h2>Images</h2> 
                 <div style={{
                     border: '1px solid grey', 
                     width: '100%', 
@@ -142,6 +142,7 @@ const postForm = props => {
             <hr></hr>
                  
                 <button className="submit-button" onClick={props.postDataHandler}>Post</button>
+                <button className="submit-button" onClick={props.resetForm}>Reset Form</button>
             </div>
             
         </div>

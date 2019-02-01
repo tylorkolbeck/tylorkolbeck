@@ -12,7 +12,7 @@
   .newpost_form_container {
     position: relative;
     background: 'yellow';
-    width: 80%;
+
     max-width: 1200px;
     margin: auto;
   }
@@ -28,7 +28,6 @@
   }
   
   .NewPost textarea {
-    font-size: .8rem;
     font-weight: 400;
     font-family: 'Montserrat', sans-serif;
     border: 1px solid #ccc;
@@ -42,7 +41,7 @@
   }
   
   .NewPost input {
-    font-size: .8rem;
+    font-size: 1rem;
     font-weight: 400;
     font-family: 'Montserrat', sans-serif;
     border: 1px solid #ccc;
@@ -65,7 +64,7 @@
   }
   
   .NewPost label {
-    font-size: .9rem;
+    font-size: 1rem;
     border: 0px;
     border-radius: 5px 5px 0 0;
     color: rgb(49, 49, 49);
@@ -91,7 +90,7 @@
   
   .newpost__live_preview_container {
     padding: 8px;
-    background-color: rgb(219, 219, 219, .3);
+    /* background-color: rgb(219, 219, 219, .3); */
     white-space: pre-wrap;
     border-radius: 5px;
   }
@@ -102,7 +101,7 @@
     margin: 20px; 
     position: relative;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 1rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -180,7 +179,7 @@
   color: white;
   font-weight: bold;
   float: right;
-  font-size: 22px;
+  font-size: 1rem;
   line-height: 20px;
   cursor: pointer;
   transition: 0.3s;

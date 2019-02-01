@@ -3,14 +3,13 @@ import './EditPost.css'
 import history from '../../history'
 import axios from 'axios';
 import PostForm from '../../components/PostForm/PostForm'
-
+import { guidGenerator } from  '../../MyModules/my_module'
 
  // TODO: SHOW THAT THERE ARE UNSAVED CHANGES AND SHOW HAVE A WAY TO DISCARD ALL CHANGES
 //  TODO: FIX EDGE CASE WHERE I LOG IN AND THERE IS NO WHERE TO GO BACK TO. THEN JUST GO TO HOME PAGE
 
 class EditPost extends Component  {
   state = {
-    // ['title','author','tags', 'category', 'description', 'bodyText', 'isPublic']
     postItems: {
       title: false,
       author: false,
@@ -21,6 +20,8 @@ class EditPost extends Component  {
       isPublic: false,
       postImages: [],
       _id: false,
+      createdAt: false,
+      guid: false
       // userId: false
     },
 
@@ -38,16 +39,14 @@ class EditPost extends Component  {
     bodyText: '',
     postImages: [],
     isPublic: false,
-
     unsavedChanges: false,
-
     selectedFiles: [],
-
-    loading:false
+    loading:false,
+    guid: false,
   }
 
-
   componentDidMount() {
+    console.log(this.state)
     // If there is a postId then assume that we are editing a post. 
     if (this.state.postId && this.props.match.params.postId) {
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
@@ -58,13 +57,14 @@ class EditPost extends Component  {
     }
     // If there is not postId then assume that we are creating a new post. 
     if (!this.props.match.params.postId) {
+      // Make sure that a new post is not already being edited
       this.checkLocalStorage()
     }
   }
   
   updateStateHandler(event) {
-    // let fieldValue = event.target.value
-    let fieldValue = event.target.name === 'tags' ?  event.target.value.toLowerCase().split(',') : event.target.value
+    // let fieldValue = event.target.name === 'tags' ?  event.target.value.split(',') : event.target.value
+    let fieldValue = event.target.value
     let fieldName = event.target.name
     this.setState({[fieldName]: fieldValue})
     localStorage.setItem(`${this.state.localStoragePrefix}${fieldName}`, fieldValue)
@@ -72,15 +72,17 @@ class EditPost extends Component  {
   }
 
   // Checks local storage for any unsaved progress.
+  // TODO: Make a more general function to handle arrays that are coming from localstorage
   checkLocalStorage() {
     let storageDataObj = {...this.state.postItems}
     for(let key in storageDataObj) {
+      // Handle the tags array from local storage
       if (key === 'tags' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
           this.setState({unsavedChanges: true})
           storageDataObj[key] = true
           this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(',')})
       }
-
+      // Handle postImages Array if in local storage
        else if (key === 'postImages' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
         this.setState({[key]:localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(','),unsavedChanges: true})
       }
@@ -90,6 +92,19 @@ class EditPost extends Component  {
         storageDataObj[key] = true
         this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`), postItems: storageDataObj})
       }
+    }
+    // if (!this.state.postItems.guid) {
+    //   this.setState({guid: guidGenerator()})
+    //   localStorage.setItem(`${this.state.localStoragePrefix}guid`, this.state.postItems.guid)
+    // }
+  }
+
+  removeLocalStorageData() {
+    let storageDataObj = {...this.state.postItems}
+    for (let key in storageDataObj) {
+      localStorage.removeItem(`${this.state.localStoragePrefix}${key}`)
+      console.log('CLEARED LOCAL STORAGE')
+      window.location.reload()
     }
   }
 
@@ -136,14 +151,10 @@ class EditPost extends Component  {
   }
 
   fileUploadHandler = (fileObject) => {
-
-    
-
-
     if (fileObject.file) {
       const formData = new FormData()
       formData.append('postImages', fileObject.file, fileObject.name)
-      axios.post('https://api.thedailyfunc.com/posts/image-upload', formData, {
+      axios.post('/posts/image-upload', formData, {
         onUploadProgress: progressEvent => {
           console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
         }
@@ -193,7 +204,7 @@ class EditPost extends Component  {
       author: this.state.author,
       bodyText: this.state.bodyText,
       description: this.state.description,
-      tags: this.state.tags.map((tag) => tag.trim()),
+      tags: this.state.tags.map((tag) => tag.trim()), // Expecting an array which I havent turned tags in to yet.
       category: this.state.category,
       postImages: this.state.postImages,
       isPublic: this.state.isPublic,
@@ -266,7 +277,6 @@ class EditPost extends Component  {
   showPostForm = () => {
     let showNewPostForm;
     
-
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = 
         <PostForm 
@@ -279,6 +289,7 @@ class EditPost extends Component  {
           isPublic={this.state.isPublic}
           selectedFiles={this.state.selectedFiles}
           postImages={this.state.postImages}
+          guid={this.state.guid}
           togglePublic={this.togglePublic.bind(this)}
           updateStateHandler={this.updateStateHandler.bind(this)}
           fileUploadHandler={this.fileUploadHandler.bind(this)}
@@ -286,6 +297,7 @@ class EditPost extends Component  {
           postDataHandler={this.postDataHandler.bind(this)}
           deleteImageHandler={this.deleteImageHandler}
           loading={this.state.loading}
+          resetForm={this.removeLocalStorageData.bind(this)}
         />
     } else if (this.state.userId !== process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
