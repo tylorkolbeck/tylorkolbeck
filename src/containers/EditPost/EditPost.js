@@ -21,7 +21,8 @@ class EditPost extends Component  {
       postImages: [],
       _id: false,
       createdAt: false,
-      guid: false
+      guid: false,
+      imageFolder: false
       // userId: false
     },
 
@@ -43,10 +44,11 @@ class EditPost extends Component  {
     selectedFiles: [],
     loading:false,
     guid: false,
+    imageFolder: false
   }
 
   componentDidMount() {
-    console.log(this.state)
+    // console.log(this.state)
     // If there is a postId then assume that we are editing a post. 
     if (this.state.postId && this.props.match.params.postId) {
       if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
@@ -58,6 +60,10 @@ class EditPost extends Component  {
     // If there is not postId then assume that we are creating a new post. 
     if (!this.props.match.params.postId) {
       // Make sure that a new post is not already being edited
+      this.setState({imageFolder: this.imageDirectoryGenerator()}, () => localStorage.setItem(`${this.state.localStoragePrefix}imageFolder`, this.state.imageFolder))
+
+      
+      // this.setState({imageFolder: this.imageDirectoryGenerator()}, () => console.log(this.state))
       this.checkLocalStorage()
     }
   }
@@ -151,9 +157,10 @@ class EditPost extends Component  {
   }
 
   fileUploadHandler = (fileObject) => {
+    let directoryName = this.state.imageFolder
     if (fileObject.file) {
       const formData = new FormData()
-      formData.append('postImages', fileObject.file, fileObject.name)
+      formData.append('postImages', fileObject.file, fileObject.name, directoryName)
       axios.post('/posts/image-upload', formData, {
         onUploadProgress: progressEvent => {
           console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
@@ -171,6 +178,16 @@ class EditPost extends Component  {
     } else {
       return
     }
+  }
+
+  imageDirectoryGenerator = () => {
+    var directoryName = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 18; i++)
+      directoryName += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return directoryName;
   }
 
   deleteImageHandler = (event) => {
@@ -208,10 +225,10 @@ class EditPost extends Component  {
       category: this.state.category,
       postImages: this.state.postImages,
       isPublic: this.state.isPublic,
-      userId: this.state.userId
+      userId: this.state.userId,
+      imageFolder: this.state.imageFolder
     }
     
-
     // If editing an array then run the patch.
     if (this.state.postId === this.state._id) {
       let dataArray = []
@@ -224,6 +241,7 @@ class EditPost extends Component  {
       axios({
         method: 'patch',
         url: '/posts/' + this.state._id,
+        // url: 'http://localhost:3000/' + this.state._id,
         data: dataArray, 
      
         headers: {
@@ -243,19 +261,22 @@ class EditPost extends Component  {
           console.log("[POST - ERROR] - ", err)
         })
     } else { // Then this is a new post. 
-        let keysToSend = ['title','author','tags', 'category', 'description', 'bodyText', 'isPublic', 'postImages']
+        let keysToSend = ['title','author','tags', 'category', 'description', 'bodyText', 'isPublic', 'postImages', 'imageFolder']
         
         let dataObj = {}
         keysToSend.forEach((key) => {
           dataObj[key] = this.state[key]
         })
 
-        console.log(dataObj)
+        // console.log(dataObj)
 
         // The HTTP Request
         axios({
           method: 'post',
-          url: 'https://api.thedailyfunc.com/posts',
+          // url: 'http://localhost:3000/posts',
+          // url: 'https://api.thedailyfunc.com/posts',
+          url: '/posts/' + this.state._id,
+
           data: {...dataObj}, 
       
           headers: {
@@ -310,6 +331,7 @@ class EditPost extends Component  {
   render () {
     return (
       <div>
+        {this.state.imageFolder}
         {this.state.unsavedChanges && 
           <div className="alert">
             <span className="closebtn">!</span> 
