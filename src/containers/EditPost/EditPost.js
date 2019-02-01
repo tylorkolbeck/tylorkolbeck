@@ -143,7 +143,7 @@ class EditPost extends Component  {
       fileObject.file = event.target.files[0]
       fileObject.name = Date.now().toString() + "-" + event.target.files[0].name
       fileObject.location = ''
-      fileObject.directoryName = this.state.imageFolder
+      fileObject.directoryName = 'testtesttest'
   
       this.setState({
         selectedFiles: [...oldFileObject, fileObject]
