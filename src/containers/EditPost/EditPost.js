@@ -143,6 +143,7 @@ class EditPost extends Component  {
       fileObject.file = event.target.files[0]
       fileObject.name = Date.now().toString() + "-" + event.target.files[0].name
       fileObject.location = ''
+      fileObject.directoryName = this.state.imageFolder
   
       this.setState({
         selectedFiles: [...oldFileObject, fileObject]
@@ -160,7 +161,7 @@ class EditPost extends Component  {
     let directoryName = this.state.imageFolder
     if (fileObject.file) {
       const formData = new FormData()
-      formData.append('postImages', fileObject.file, fileObject.name, directoryName)
+      formData.append('postImages', fileObject.file, fileObject.name, fileObject.directoryName)
       axios.post('/posts/image-upload', formData, {
         onUploadProgress: progressEvent => {
           console.log(Math.trunc(progressEvent.loaded / progressEvent.total * 100).toString() +  '%')
