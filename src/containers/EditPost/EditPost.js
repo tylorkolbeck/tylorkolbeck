@@ -161,7 +161,7 @@ class EditPost extends Component  {
     let directoryName = {imageDirectory: this.state.imageFolder}
     if (fileObject.file) {
       const formData = new FormData()
-      formData.append('postImages', fileObject.file, fileObject.name, directoryName)\
+      formData.append('postImages', fileObject.file, fileObject.name, directoryName)
       console.log(formData)
       axios.post('/posts/image-upload', formData, {
         onUploadProgress: progressEvent => {
