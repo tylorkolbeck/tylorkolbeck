@@ -1,4 +1,32 @@
-import React, { Component } from 'react'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: EditPost.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: EditPost.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react'
 import './EditPost.css'
 import history from '../../history'
 import axios from 'axios';
@@ -52,8 +80,8 @@ class EditPost extends Component  {
 
   componentDidMount() {
     // If there is a postId then assume that we are editing a post. 
-    if (this.state.postId && this.props.match.params.postId) {
-      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.postId)) {
+    if (this.state.postId &amp;&amp; this.props.match.params.postId) {
+      if (!this.state.loadedPost || (this.state.loadedPost &amp;&amp; this.state.loadedPost.id !== this.props.match.params.postId)) {
         this.getPostToEdit()
         this.setState({localStoragePrefix: this.state.postId + '-'})
         this.checkLocalStorage()
@@ -87,13 +115,13 @@ class EditPost extends Component  {
     let storageDataObj = {...this.state.postItems}
     for(let key in storageDataObj) {
       // Handle the tags array from local storage
-      if (key === 'tags' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+      if (key === 'tags' &amp;&amp; localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
           this.setState({unsavedChanges: true})
           storageDataObj[key] = true
           this.setState({[key]: localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(',')})
       }
       // Handle postImages Array if in local storage
-       else if (key === 'postImages' && localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
+       else if (key === 'postImages' &amp;&amp; localStorage.getItem(`${this.state.localStoragePrefix}${key}`)) {
         this.setState({[key]:localStorage.getItem(`${this.state.localStoragePrefix}${key}`).split(','),unsavedChanges: true})
       }
 
@@ -188,7 +216,7 @@ class EditPost extends Component  {
     var directoryName = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-    for (var i = 0; i < 18; i++)
+    for (var i = 0; i &lt; 18; i++)
       directoryName += possible.charAt(Math.floor(Math.random() * possible.length));
 
     return directoryName;
@@ -225,7 +253,7 @@ class EditPost extends Component  {
       author: this.state.author,
       bodyText: this.state.bodyText,
       description: this.state.description,
-      tags: this.state.tags, //.map((tag) => tag.trim()), // Expecting an array which I havent turned tags in to yet.
+      tags: this.state.tags.map((tag) => tag.trim()), // Expecting an array which I havent turned tags in to yet.
       category: this.state.category,
       postImages: this.state.postImages,
       isPublic: this.state.isPublic,
@@ -304,7 +332,7 @@ class EditPost extends Component  {
     
     if (this.state.userId === process.env.REACT_APP_ADMIN_USERID) {
       showNewPostForm = 
-        <PostForm 
+        &lt;PostForm 
           title={this.state.title}
           author={this.state.author}
           tags={this.state.tags}
@@ -325,31 +353,53 @@ class EditPost extends Component  {
           resetForm={this.removeLocalStorageData.bind(this)}
         />
     } else if (this.state.userId !== process.env.REACT_APP_ADMIN_USERID) {
-      showNewPostForm = <div>You do not have permission to create a new post.  Please login.</div>
+      showNewPostForm = &lt;div>You do not have permission to create a new post.  Please login.&lt;/div>
     } else {
-      showNewPostForm = <div>Error</div>
+      showNewPostForm = &lt;div>Error&lt;/div>
     }
     return showNewPostForm
   }
   
   render () {
     return (
-      <div>
+      &lt;div>
         {this.state.imageFolder}
-        {this.state.unsavedChanges && 
-          <div className="alert">
-            <span className="closebtn">!</span> 
+        {this.state.unsavedChanges &amp;&amp; 
+          &lt;div className="alert">
+            &lt;span className="closebtn">!&lt;/span> 
               You have unsaved changes.
-          </div>}
+          &lt;/div>}
         {this.showPostForm()}
-        {this.state.unsavedChanges && 
-          <div className="alert">
-            <span className="closebtn">!</span> 
+        {this.state.unsavedChanges &amp;&amp; 
+          &lt;div className="alert">
+            &lt;span className="closebtn">!&lt;/span> 
               You have unsaved changes.
-          </div>}
-      </div>
+          &lt;/div>}
+      &lt;/div>
     )
   }
 }
 
-export default EditPost
+export default EditPost</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Feb 07 2019 08:10:27 GMT-0800 (Pacific Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

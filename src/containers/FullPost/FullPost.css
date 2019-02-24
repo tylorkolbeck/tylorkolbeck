@@ -7,6 +7,9 @@
   margin: auto;
 }
 
+.FullPost pre {
+  font-size: 1rem;
+}
 
 
 .FullPost h1 {
@@ -34,8 +37,8 @@
 
 .fullpost__description {
   color: rgb(146, 145, 145);
-  width: 90%;
-  border-left: 2px solid #D75550;
+  width: 95%;
+  /* border-left: 2px solid #D75550; */
   padding-left: 8px;
   font-style: italic;
   margin: auto;
@@ -90,7 +93,8 @@
 
 .fullpost__date {
   font-size: 1.2rem;
-  color:  #2EA399;
+  color:  #555;
+  /* color:  #2EA399; */
 }
 
 .photo_display {

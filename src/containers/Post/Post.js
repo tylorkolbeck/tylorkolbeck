@@ -34,8 +34,11 @@ class post extends Component {
   }
 
   tagLoop(arr) {
-    let tagArray = []
+    console.log('IN TAG LOOP')
+    let tagArray = [] // CHANGED
+  
     if (Array.isArray(arr) && arr.length > 0) {
+      console.log('IS ARRAY', arr)
       let arrayCounter = 0
       
       arr.forEach((tag)=> {
@@ -46,6 +49,7 @@ class post extends Component {
       })
       return tagArray
     } else if (typeof arr === 'string'){
+      console.log('IS NOT ARRAY', arr)
       let arrayCounter = 0
       let newTagArr = arr.split(',')
       newTagArr.forEach(tag => {

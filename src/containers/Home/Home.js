@@ -14,7 +14,7 @@ class Home extends Component {
             <h3>What is this place?</h3>
             <p>Here you will find articles from a wide range of topics but mostly focusing on Javascript front and back end development.</p>
             <h3>How can I write an article for your website?</h3>
-            <p>You can write me a message using the <a href="/contact">contact</a> form with details and I will get back to you as soon as I can.</p>
+            <p>You can write me a message using the <a href="/contact">contact</a> form with details.</p>
             <h3>I am looking for some help on a project, can you help?</h3>
             <p>I would love to help you!  Just send me a message with the details.</p>
             <h3>Can you make a website for me?</h3>

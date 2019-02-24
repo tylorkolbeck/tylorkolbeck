@@ -248,7 +248,7 @@ class AllPosts extends Component {
           author={post.author}
           description={post.description}
           date = {dateConversion(date, 'y,m,d')}
-          tags={post.tags}
+          tags={post.tags} // CHANGED
           clicked={(event)=> this.postSelectedHandler(event, post._id)}
           location={this.state.location}
           tagFilter={this.filterPostsByTag}
@@ -276,10 +276,10 @@ class AllPosts extends Component {
      {editSlider()}
      
           
-          <select className="allPosts__tag_filter_dropdown" onChange={(e) => this.filterByDropDown(e)}style={{display: 'inline'}}>
+          {/* <select className="allPosts__tag_filter_dropdown" onChange={(e) => this.filterByDropDown(e)}style={{display: 'inline'}}>
               <option>Filter</option>
               {tagDropDown}
-          </select>
+          </select> */}
           {filterSpan()}
           {getFilters()}
 
