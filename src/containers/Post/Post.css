@@ -22,6 +22,7 @@
     border-radius: 2px;
     width: 100%;
     margin: auto;
+    padding-bottom: 20px;
   }
   
   .Sync h1:hover {
@@ -34,6 +35,14 @@
   
   .Sync h1:first-of-type {
     margin: 0px;
+  }
+
+  .Sync h1 {
+    font-size: 1.8rem;
+  }
+
+  .Sync p {
+    font-size: 1.3rem;
   }
 
   .sync__main__info:first-of-type {
@@ -136,15 +145,16 @@
   }
 
   .posts__post_details_container {
-    border-radius: 1px;
+    /* border-radius: 1px;
     border-left: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid lightgrey; */
+    border-bottom: 1px solid lightgrey;
     padding: 8px;
     margin: 16px 0px;
     background: white;
-    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4);
+    /* box-shadow: 0 4px 2px -2px rgba(0,0,0,0.4); */
   }
 
   .tag_block {
