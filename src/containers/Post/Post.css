@@ -247,8 +247,10 @@
   
     .sync__date__mobile {
       /* display: inline-block; */
-      display: none;
-      color: #2EA399;
+      display: block;
+      color: #D75550;
+      font-size: 1.2rem;
       padding-left: 5px;
+      font-family: 'Montserrat', sans-serif;
     }
   }
